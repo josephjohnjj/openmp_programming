@@ -1,6 +1,14 @@
 # Shared Memory Parallel Programming with OpenMP
 
-_Objective: To explore the core OpenMP data parallel constructs._
+This tutorial demonstrates how we can use OpenMP for shared memory programming.
+
+Learning outcomes of the tutorial are:
+1. Learn how to program for shared memory using OpenMP.
+2. Learn how to offload computations to GPU using OpenMP.
+
+Prerequisite:
+1. Experience with C Programming.
+
 
 [Instructions for accessing the remote systems](../../systems.md)
 
