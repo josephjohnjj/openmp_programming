@@ -1,4 +1,4 @@
-# Shared Memory Parallel Programming with OpenMP
+# Shared Memory and GPU Programming with OpenMP
 
 This tutorial demonstrates how we can use OpenMP for shared memory programming.
 
