@@ -1,4 +1,4 @@
-# Hands-On Session #12: Shared Memory Parallel Programming with OpenMP
+# Shared Memory Parallel Programming with OpenMP
 
 _Objective: To explore the core OpenMP data parallel constructs._
 
@@ -245,4 +245,4 @@ There are no dependencies and the loop can in principle be run in parallel.
 15. If you inserted the #pragma omp parallel for directive, what sort of scheduling would be advisable to use?
 
 * * *
--->
+This course is based on material developed by current and former ANU staff, including [Peter Strazdins](https://cecc.anu.edu.au/people/peter-strazdins), [Alistair Rendell](https://www.flinders.edu.au/people/alistair.rendell), and [Josh Milthorpe](http://www.milthorpe.org).
