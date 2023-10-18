@@ -8,10 +8,6 @@ Learning outcomes of the tutorial are:
 
 Prerequisite:
 1. Experience with C Programming.
-
-
-[Instructions for accessing the remote systems](../../systems.md)
-
 * * *
 
 ## Background
