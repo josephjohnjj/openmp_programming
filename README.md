@@ -17,13 +17,15 @@ Prerequisite:
 
 In a shared memory system, multiple CPUs are grouped into different regions called NUMA regions. Each of these regions have a differennt affinity towards certain parts of the memory, and there can be multiple CPUs within each NUAM region. In the figure provided, there are two NUMA regions, each with one CPU. These CPUs have multiple cores, and each core can perform arithmentic and logic operations independently. Each core has its own L1 cache, and depending on the architecture all the cores may share a L2 cache and NUMA regions may shared and L3 cache. In the diagram provided, we're only showing L1 and L2 caches.
 
-When we are running a sequential program we are only utilizing one core from one of the NUMA regions, but the program will perform better if it can delegate the parts of the program that can be run concurrently to the different cores. OpenMP implements a `fork-join` method which makes this process easy. 
+When we are running a sequential program we are only utilizing one core from one of the NUMA regions, but the program will perform better if it can delegate the parts of the program that can be run concurrently to the different cores. 
+
+### Threads 
 
 ## Fork-Join Parallelism
 
 ![](figs/fork-join.png)
 
-The fork-join method is a parallel computing technique in which the program's execution branches or `forks` at specific points and later converges or `joins` at subsequent points. In the fork phase, individual threads execute parallel segments of the program that can be processed simultaneously. In the join phase, the program resumes its execution in a sequential manner, much like a traditional sequential program.
+The fork-join method is a parallel computing technique in which the program's execution branches or `forks` at specific points and later converges or `joins` at subsequent points. In the fork phase, individual threads execute parallel segments of the program that can be processed simultaneously. In the join phase, the program resumes its execution in a sequential manner, much like a traditional sequential program. OpenMP follows the fork-join model of paralleism. 
 
 ## OpenMP API
 
