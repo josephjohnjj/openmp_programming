@@ -19,9 +19,11 @@ In a shared memory system, multiple CPUs are grouped into different regions call
 
 When we are running a sequential program we are only utilizing one core from one of the NUMA regions, but the program will perform better if it can delegate the parts of the program that can be run concurrently to the different cores. OpenMP implements a `fork-join` method which makes this process easy. 
 
-## Fork-Join 
+## Fork-Join Parallelism
 
 ![](figs/fork-join.png)
+
+The fork-join method is a parallel computing technique in which the program's execution branches or `forks` at specific points and later converges or `joins` at subsequent points. In the fork phase, individual threads execute parallel segments of the program that can be processed simultaneously. In the join phase, the program resumes its execution in a sequential manner, much like a traditional sequential program.
 
 ## OpenMP API
 
