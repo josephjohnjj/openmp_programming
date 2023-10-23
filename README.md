@@ -12,9 +12,12 @@ Prerequisite:
 
 ## Shared Memory
 
-![](figs/shmem.png)
+![](figs/shmem_arch.drawio.png)
 
-In a shared memory architecture the the CPUs are grouped into NUMA regions. Each NUMA region will have a differennt affinity towards different segments of the memory and each NUMA region can have multiple CPUs. In the figure given above there and two NUMA regions with one CPU per NUMA region. Each CPU has N cores and each core has a seperate Arithmetic and Logic Unit (ALU) so each core can do all the aritmetic operation and all the logic operations independently. Each core has seperate L1 cache, and depending on the architecture all the cores may share a L2 cache and NUMA regions may shared and L3 cache. In the above diagram we have only shown L1 and L2 cache.
+
+In a shared memory system, multiple CPUs are grouped into different regions called NUMA regions. Each of these regions have a differennt affinity towards certain parts of the memory, and there can be multiple CPUs within each NUAM region. In the figure provided, there are two NUMA regions, each with one CPU. These CPUs have multiple cores, and each core can perform arithmentic and logic operations independently. Each core has its own L1 cache, and depending on the architecture all the cores may share a L2 cache and NUMA regions may shared and L3 cache. In the diagram provided, we're only showing L1 and L2 caches.
+
+When we are running a sequential program we are only utilizing one core from one of the NUMA regions, but the program will perform better if it can delegate the parts of the program that can be run concurrently to the different cores. OpenMP implements a `fork-join` method which makes this process easy. 
 
 ## OpenMP
 
