@@ -10,7 +10,9 @@ Prerequisite:
 1. Experience with C Programming.
 * * *
 
-## Background
+## Shared Memory
+[](./figs/shared_mem.png)
+## OpenMP
 
 The OpenMP Application Program Interface (API) is a portable, scalable model that gives shared-memory parallel programmers a simple and flexible interface for developing parallel applications. The OpenMP standard supports multi-platform shared-memory parallel programming in C/C++ and Fortran. It is jointly defined by a group of major computer hardware and software vendors and major parallel computing user facilities. For more information, see the [OpenMP website](http://www.openmp.org).
 
