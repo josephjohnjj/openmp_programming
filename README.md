@@ -19,7 +19,9 @@ In a shared memory system, multiple CPUs are grouped into different regions call
 
 When we are running a sequential program we are only utilizing one core from one of the NUMA regions, but the program will perform better if it can delegate the parts of the program that can be run concurrently to the different cores. 
 
-### Threads 
+## Threads 
+
+A thread represents a sequential sequence of tasks within a process. Typically, a thread is a constituent component of a process, and a single process can have multiple threads. Each thread maintains its own program counter, stack memory, and registers. Nevertheless, threads within the same process shares the heap memory and it can potentially share the same code and data.
 
 ## Fork-Join Parallelism
 
