@@ -21,6 +21,8 @@ When we are running a sequential program we are only utilizing one core from one
 
 ## Threads 
 
+![](figs/threads.png)
+
 A thread is a sequential independent execution stream that executes different tasks in order. Typically, a thread is a constituent component of a process, and a single process can have multiple threads. Each thread maintains its own program counter, stack memory, and registers. Nevertheless, threads within the same process shares the heap memory and it can potentially share the same code and data.
 
 Each process has an upper bound on the number of process it can handle. This number can be found using the command 
