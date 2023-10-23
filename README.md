@@ -12,7 +12,7 @@ Prerequisite:
 
 ## Shared Memory
 
-![](figs/shared_mem.png)
+![](figs/shmem.png)
 
 In a shared memory architecture the the CPUs are grouped into NUMA regions. Each NUMA region will have a differennt affinity towards different segments of the memory and each NUMA region can have multiple CPUs. In the figure given above there and two NUMA regions with one CPU per NUMA region. Each CPU has N cores and each core has a seperate Arithmetic and Logic Unit (ALU) so each core can do all the aritmetic operation and all the logic operations independently. Each core has seperate L1 cache, and depending on the architecture all the cores may share a L2 cache and NUMA regions may shared and L3 cache. In the above diagram we have only shown L1 and L2 cache.
 
