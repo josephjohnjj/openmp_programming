@@ -14,6 +14,8 @@ Prerequisite:
 
 ![](figs/shared_mem.png)
 
+In a shared memory architecture the the CPUs are grouped into NUMA regions. Each NUMA region will have a differennt affinity towards different segments of the memory and each NUMA region can have multiple CPUs. In the figure given above there and two NUMA regions with one CPU per NUMA region. 
+
 ## OpenMP
 
 The OpenMP Application Program Interface (API) is a portable, scalable model that gives shared-memory parallel programmers a simple and flexible interface for developing parallel applications. The OpenMP standard supports multi-platform shared-memory parallel programming in C/C++ and Fortran. It is jointly defined by a group of major computer hardware and software vendors and major parallel computing user facilities. For more information, see the [OpenMP website](http://www.openmp.org).
