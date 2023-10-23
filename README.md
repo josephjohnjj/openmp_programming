@@ -19,7 +19,11 @@ In a shared memory system, multiple CPUs are grouped into different regions call
 
 When we are running a sequential program we are only utilizing one core from one of the NUMA regions, but the program will perform better if it can delegate the parts of the program that can be run concurrently to the different cores. OpenMP implements a `fork-join` method which makes this process easy. 
 
-## OpenMP
+## Fork-Join 
+
+![](figs/fork-join.png)
+
+## OpenMP API
 
 The OpenMP Application Program Interface (API) is a portable, scalable model that gives shared-memory parallel programmers a simple and flexible interface for developing parallel applications. The OpenMP standard supports multi-platform shared-memory parallel programming in C/C++ and Fortran. It is jointly defined by a group of major computer hardware and software vendors and major parallel computing user facilities. For more information, see the [OpenMP website](http://www.openmp.org).
 
