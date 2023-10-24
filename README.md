@@ -216,7 +216,7 @@ but the performance would be very poor!
     
     to add `icx` to your command path. Now re-run this example with `OMP_DYNAMIC=true`. How many threads are used? Why might the behaviour be different?
 
-## The `private`, `firstprivate` and `lastprivate` Construct
+### The `private`, `firstprivate` and `lastprivate` Construct
 
 When a variable is declared as `private`, each thread uses seperate unique memory address to for the variable while in the parallel region. When the parallel region ends, the memory is freed and these variables goes out of scope. When a variable is decalred `lastprivate` similar to `private` with additional caveat the the value reflected by the last thread will be the value available for the varibale outside the parallel section. 'firstprivate` also behaves similar to private but the all thread copy of the variable will be initialised with the same value the varibale has before the parallel section begins.    
 
