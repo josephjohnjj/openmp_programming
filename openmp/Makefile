@@ -7,7 +7,8 @@ LDFLAGS	= -lm -lgomp
 all:	ompexample1 ompexample2 ompexample3 ompexample4 \
 	ompexample5 ompexample6 \
 	gpuexample1 \
-	openmp_tasks
+	openmp_tasks \
+	openmp_depend
 
 ompexample1:	ompexample1.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
@@ -31,6 +32,8 @@ gpuexample1:	gpuexample1.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 openmp_tasks:	openmp_tasks.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+openmp_depend:	openmp_depend.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
 
 .SUFFIXES:	.o .c
@@ -41,5 +44,5 @@ openmp_tasks:	openmp_tasks.c
 clean:
 	/bin/rm -f a.out *.o *~ ompexample[1-6]
 	/bin/rm -f gpuexample[1-6]
-	/bin/rm -f openmp_tasks
+	/bin/rm -f openmp_tasks openmp_depend
 
