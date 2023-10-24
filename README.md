@@ -235,7 +235,7 @@ int fib(int n)
     return l+r;
 }
 ```
-The code block immediatly after `#pragma omp task` will be the code a task will execute. The `taskwait` construct specifies a wait on the completion of child tasks of the current task.
+The code block immediatly after `task` construct will be the code a task will execute. The `#pragma omp taskwait` construct specifies a wait on the completion of child tasks of the current task.
 
 ![](figs/graph.png)
 
