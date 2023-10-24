@@ -216,6 +216,8 @@ but the performance would be very poor!
     
     to add `icx` to your command path. Now re-run this example with `OMP_DYNAMIC=true`. How many threads are used? Why might the behaviour be different?
 
+## Task-based Computing in OpenMP
+
 ### The `tasks` Construct
 
 Tasks in OpenMP is composed of a code segment and the data to be operated on, along with the location where the execution will happen. When a thread encounters a task construct, it can choose to execute the task immediately or defer its execution until a later time. If deferred, the task in placed in a task pool. The threads in the parellel section can remove the tasks from the task pool and execute them until the pool is empty.
@@ -240,6 +242,14 @@ int fib(int n)
 The code block immediatly after `task` construct will be the code a task will execute. The `#pragma omp taskwait` construct specifies a wait on the completion of child tasks of the current task.
 
 ![](figs/graph.png)
+
+## The `depend` Construct
+The `depend` clause allows you to provide information on the how a task will access data. This also allows to define additional constraints on tasks.
+
+Some examples of use for the depend clause:
+1. `depend(in: x, y)`: the task will read variables x and y.
+2. `depend(out: x)`: the task will write variable x.
+3. `depend(inout: x, buffer[0:n])`: the task will both read and write variable x and the content of n elements of buffer starting from index 0.
 
 
 ## Optional Material
