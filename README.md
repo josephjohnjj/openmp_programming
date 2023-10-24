@@ -251,6 +251,22 @@ Some examples of use for the depend clause:
 2. `depend(out: x)`: the task will write variable x.
 3. `depend(inout: x, buffer[0:n])`: the task will both read and write variable x and the content of n elements of buffer starting from index 0.
 
+The `depends` clause allows the programmer to create a _happens-before_ relation between tasks. For instance the code segment given below will make sure that the tasks that caclculate the value of `z` is executed only after the tasks that write to `x` and `y` is complete.
+
+```c
+#pragma omp task shared(x) depend(out: x)
+write_val(&x, 10);
+
+#pragma omp task shared(x) depend(out: y)
+write_val(&y, 10);
+
+#pragma omp task shared(x, y) depend(in: x, y)
+z = read_val(&x) + read_val(&y);
+
+```
+![](figs/task_graphs.drawio.png)
+One of the main advanatge of `depends` clause is that it removes the need of the `taskwait` clause. 
+
 
 ## Optional Material
 
