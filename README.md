@@ -218,9 +218,22 @@ but the performance would be very poor!
 
 ### The `tasks` Construct
 
-![](figs/graph.png)
-
 Tasks in OpenMP is composed of a code segment and the data to be operated on, along with the location where the execution will happen. When a thread encounters a task construct, it can choose to execute the task immediately or defer its execution until a later time. If deferred, the task in placed in a task pool. The threads in the parellel section can remove the tasks from the task pool and execute them until the pool is empty.
+
+```c
+if (n < 2) return n;
+
+#pragma omp task shared(l) firstprivate(n)
+l = fib(n-1);
+
+#pragma omp task shared(r) firstprivate(n)
+r = fib(n-2);
+
+#pragma omp taskwait
+return l+r;
+```
+
+![](figs/graph.png)
 
 
 ## Optional Material
