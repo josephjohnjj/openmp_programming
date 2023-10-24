@@ -223,6 +223,23 @@ but the performance would be very poor!
 3. The `lastprivate` clause provides a superset of the functionality provided by the private clause. The private variable is updated after the end of the parallel construct.
 4. The `shared` clause declares the variables in the list to be shared among all the threads in a team. All threads within a team access the same storage area for shared variables.
 
+```c
+#pragma omp parallel for private(x)
+{
+    ...
+}
+
+#pragma omp parallel for firstprivate(x)
+{
+    ...
+}
+
+#pragma omp parallel for lastprivate(x)
+{
+    ...
+}
+```
+
 ### `if` Clause
 
 `if` clause specifies whether a code segment should be executed in parallel or in serial. `if` clause applies to `parallel`, `for` and `sections`.
@@ -230,11 +247,10 @@ but the performance would be very poor!
 ```c
 #pragma omp parallel if (val)
 if (omp_in_parallel()) {
-    #pragma omp single
-    printf("val = %d, parallelized with %d threads\n",val, omp_get_num_threads());
+    ....
 }
 else {
-    printf("val = %d, serialized\n", val);
+    ....
 }
 ```
 
