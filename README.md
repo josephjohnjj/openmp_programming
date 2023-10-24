@@ -265,7 +265,12 @@ z = read_val(&x) + read_val(&y);
 
 ```
 ![](figs/task_graphs.drawio.png)
+
 One of the main advanatge of `depends` clause is that it removes the need of the `taskwait` clause. 
+
+## The `final` Construct
+
+
 
 
 ## Optional Material
