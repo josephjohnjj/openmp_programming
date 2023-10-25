@@ -322,6 +322,17 @@ The `taskyield` construct specifies that the current task can be suspended in fa
 
 ![](figs/tied2.png)
 
+### The `taskloop` Construct
+
+The taskloop construct is used to specify that the iterations of a loops are executed in parallel using OpenMP tasks. The iterations are distributed across tasks that are created by the construct and scheduled to be executed.
+
+```c
+#pragma omp taskloop num_tasks(20)
+for (i = 0; i < N; i++) {
+    arr[i] = i * i;
+}
+```
+
 ## Optional Material
 
 As mentioned in lectures all OpenMP constructs incur some overhead. As an application programmer it is important to have some feeling for the size of these overheads. (Also so you can beat up different vendors so that they produce better OpemMP implementations). In a paper presented to the European workshop on OpenMP (EWOMP) in 1999 Mark Bull (from Edinburgh Parallel Computing Centre - EPCC) presented a series of benchmarks for [Measuring Synchronization and Scheduling Overheads in OpenMP](./bullewomp1999final.pdf). The results are now somewhat old and were obtained with early versions of OpenMP enabled compilers. Thus if we repeated the benchmarks today I would expect improved results, but not orders of magnitude different.
