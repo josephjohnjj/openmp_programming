@@ -306,6 +306,20 @@ z = read_val(&x) + read_val(&y);
 
 One of the main advanatge of `depends` clause is that it removes the need of the `taskwait` clause. 
 
+### The `untied` Construct
+
+A task is tied if the code is executed by the same thread from beginning to end. Otherwise, the task is untied and the code can be executed by more than one thread. By default the tasks are tied in OpenMP, but this can result in performance issues. 
+
+```c
+#pragma omp task untied
+{
+    foo();
+    #pragma omp taskyield
+    bar();
+}
+```
+The `taskyield` construct specifies that the current task can be suspended in favor of execution of a different task.
+
 ## Optional Material
 
 As mentioned in lectures all OpenMP constructs incur some overhead. As an application programmer it is important to have some feeling for the size of these overheads. (Also so you can beat up different vendors so that they produce better OpemMP implementations). In a paper presented to the European workshop on OpenMP (EWOMP) in 1999 Mark Bull (from Edinburgh Parallel Computing Centre - EPCC) presented a series of benchmarks for [Measuring Synchronization and Scheduling Overheads in OpenMP](./bullewomp1999final.pdf). The results are now somewhat old and were obtained with early versions of OpenMP enabled compilers. Thus if we repeated the benchmarks today I would expect improved results, but not orders of magnitude different.
