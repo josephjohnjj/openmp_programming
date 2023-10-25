@@ -320,7 +320,7 @@ A task is tied if the code is executed by the same thread from beginning to end.
 ```
 The `taskyield` construct specifies that the current task can be suspended in favor of execution of a different task.
 
-![](figs/tied.png)
+![](figs/tied2.png)
 
 ## Optional Material
 
