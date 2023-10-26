@@ -240,7 +240,7 @@ but the performance would be very poor!
 }
 ```
 
-### `if` Clause
+### The `if` Clause
 
 `if` clause specifies whether a code segment should be executed in parallel or in serial. `if` clause applies to `parallel`, `for` and `sections`.
 
@@ -254,7 +254,7 @@ else {
 }
 ```
 
-### `simd` Clause
+### The `simd` Clause
 
 ```c
 #pragma omp parallel for simd reduction(+: acc)
@@ -264,6 +264,8 @@ for (int k = 0; k < LIMIT; k++) {
 }
 ```
 ![](figs/simd.png)
+
+The `simd` construct facilitates the concurrent execution of multiple iterations within associated loops by utilizing SIMD instructions. Each parallel iteration is processed by a distinct SIMD lane.
 
 ## Task-based Computing in OpenMP
 
