@@ -254,6 +254,17 @@ else {
 }
 ```
 
+### `simd` Clause
+
+```c
+#pragma omp parallel for simd reduction(+: acc)
+for (int k = 0; k < LIMIT; k++) {
+    float mul = a[k] * b[k];
+    acc += mul;
+}
+```
+![](figs/simd.png)
+
 ## Task-based Computing in OpenMP
 
 ### The `tasks` Construct
