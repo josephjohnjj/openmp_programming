@@ -256,6 +256,8 @@ else {
 
 ### The `simd` Clause
 
+The `simd` construct facilitates the concurrent execution of multiple iterations within associated loops by utilizing SIMD instructions. Each parallel iteration is processed by a distinct SIMD lane.
+
 ```c
 #pragma omp parallel for simd reduction(+: acc)
 for (int k = 0; k < LIMIT; k++) {
@@ -264,8 +266,6 @@ for (int k = 0; k < LIMIT; k++) {
 }
 ```
 ![](figs/simd.png)
-
-The `simd` construct facilitates the concurrent execution of multiple iterations within associated loops by utilizing SIMD instructions. Each parallel iteration is processed by a distinct SIMD lane.
 
 ## Task-based Computing in OpenMP
 
