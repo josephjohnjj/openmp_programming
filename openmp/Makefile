@@ -11,7 +11,8 @@ all:	ompexample1 ompexample2 ompexample3 ompexample4 \
 	openmp_depend \
 	openmp_private \
 	openmp_if \
-	openmp_taskgroups
+	openmp_taskgroups \
+	openmp_simd
 
 ompexample1:	ompexample1.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
@@ -47,6 +48,9 @@ openmp_if:	openmp_if.c
 openmp_taskgroups:	openmp_taskgroups.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)	
 
+openmp_simd: openmp_simd.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)	
+
 .SUFFIXES:	.o .c
 
 %.o : %.c
@@ -56,4 +60,5 @@ clean:
 	/bin/rm -f a.out *.o *~ ompexample[1-6]
 	/bin/rm -f gpuexample[1-6]
 	/bin/rm -f openmp_tasks openmp_depend openmp_private openmp_if openmp_taskgroups
+	/bin/rm -f openmp_simd
 
