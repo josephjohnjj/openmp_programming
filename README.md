@@ -226,19 +226,15 @@ A program can be divided into different sections. Each of these section can be c
 	#pragma omp sections
 	{
 		#pragma omp section
-		{
-			int sum = a+b;
-		}
+		int sum = a+b;
 
 		#pragma omp section 
-		{
-            int diff = a-b;
-		}
+		int diff = a-b;
 	}			
 }
 ```
 
-![](figs/section.png)
+![](figs/sections.png)
 
 
 
