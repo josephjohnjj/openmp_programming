@@ -6,7 +6,7 @@
 
 int main() 
 {
-    omp_set_num_threads(40);
+    omp_set_num_threads(2);
 
     printf("****** Without Task Groups ****** \n");
     #pragma omp parallel
@@ -29,15 +29,16 @@ int main()
     #pragma omp parallel
     #pragma omp single
     {
-        #pragma omp task
+        #pragma omp taskgroup
         {
-            #pragma omp taskgroup
-            printf("Child task \n");
+            #pragma omp task
+            {
+                #pragma omp task 
+                printf("Child task \n");
 
-            printf("Parent task \n");
+                printf("Parent task \n");
+            }
         }
-
-        #pragma omp taskwait
 
         printf("Main thread\n");
     }
