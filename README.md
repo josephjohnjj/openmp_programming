@@ -238,6 +238,8 @@ A program can be divided into different sections. Each of these section can be c
 }
 ```
 
+![](figs/section.png)
+
 
 
 ### The  Visibility Clauses
