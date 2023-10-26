@@ -216,7 +216,31 @@ but the performance would be very poor!
     
     to add `icx` to your command path. Now re-run this example with `OMP_DYNAMIC=true`. How many threads are used? Why might the behaviour be different?
 
-### Visibility Clauses
+### The `sections` Construct
+
+A program can be divided into different sections. Each of these section can be completed by a separate thread. This is especially usefull when the sections are independent of one another.
+
+```c
+#pragma omp parallel
+{
+	#pragma omp sections
+	{
+		#pragma omp section
+		{
+			int sum = a+b;
+		}
+
+		#pragma omp section 
+		{
+            int diff = a-b;
+		}
+	}			
+}
+```
+
+
+
+### The  Visibility Clauses
 
 1. The `private` clause declares the variables in the list to be private to each thread in a team.
 2. The `firstprivate` clause provides a superset of the functionality provided by the private clause. The private variable is initialized by the original value of the variable when the parallel construct is encountered.
