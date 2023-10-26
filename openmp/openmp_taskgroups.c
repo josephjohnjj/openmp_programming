@@ -25,7 +25,7 @@ int main()
         printf("Main thread\n");
     }
 
-    printf("****** With Task Groups ****** \n");
+    printf("\n ****** With Task Groups ****** \n");
     #pragma omp parallel
     #pragma omp single
     {
