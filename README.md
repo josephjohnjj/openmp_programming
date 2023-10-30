@@ -69,6 +69,10 @@ $π = 4 * (N_{inner} / N_{total})$
 
 ## Finding Mandelbrot Fractal Using Monte Carlo Sampling
 
+![](figs/mandelbrot.png)
+
+
+
 
 ## OpenMP API
 
