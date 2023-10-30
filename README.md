@@ -38,6 +38,18 @@ The operating system assigns a thread to a core, allowing the thread to utilize 
 
 The fork-join method is a parallel computing technique in which the program's execution branches or `forks` at specific points and later converges or `joins` at subsequent points. In the fork phase, individual threads execute parallel segments of the program that can be processed simultaneously. In the join phase, the program resumes its execution in a sequential manner, much like a traditional sequential program. OpenMP follows the fork-join model of paralleism. 
 
+## Sample Application
+
+In this tutorial we will be mainly using 3 applications to demonstrate the different aspcts of OpenMP:
+1. Calculating the value of `pi` using monte carlo method.
+2. Finding Mandelbrot fractal by Monte Carlo sampling.
+3. Tiled Cholesky Factorization.
+
+We will berifly explain each application, but it is not necessary know these application in detail to work throgh the tutorial. 
+
+### Calculating the Value of `pi` Using Monte Carlo Method
+
+
 ## OpenMP API
 
 The OpenMP Application Program Interface (API) is a portable, scalable model that gives shared-memory parallel programmers a simple and flexible interface for developing parallel applications. The OpenMP standard supports multi-platform shared-memory parallel programming in C/C++ and Fortran. It is jointly defined by a group of major computer hardware and software vendors and major parallel computing user facilities. For more information, see the [OpenMP website](http://www.openmp.org).
