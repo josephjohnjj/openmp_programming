@@ -47,7 +47,7 @@ In this tutorial we will be mainly using 3 applications to demonstrate the diffe
 
 We will berifly explain each application, but it is not necessary know these application in detail to work throgh the tutorial. 
 
-### Calculating the Value of `pi` Using Monte Carlo Method
+### Calculating the Value of `π` Using Monte Carlo Method
 
 ![](figs/pi.png)
 
@@ -66,6 +66,9 @@ $area(circle) / area(square) = N_{inner} / N_{total}$
 $π/4 = N_{inner} / N_{total}$
 
 $π = 4 * (N_{inner} / N_{total})$
+
+## Finding Mandelbrot Fractal Using Monte Carlo Sampling
+
 
 ## OpenMP API
 
