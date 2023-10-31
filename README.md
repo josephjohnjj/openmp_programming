@@ -89,6 +89,11 @@ In the Monte Carlo meothod, we generate psuedo random points in the complex plan
 
 ![](figs/potrf.png)
 
+Given a Hermitian positive-definite matrix `A`, Cholesky factorization finds `L` such that
+$A = L * L^{T}$
+
+Where `L` is a lower triangular matrix with real and positive diagonal entries and  L^{T} is the conjugate transpose of L.
+
 
 
 ## OpenMP API
