@@ -87,6 +87,8 @@ In the Monte Carlo meothod, we generate psuedo random points in the complex plan
 
 ## Tiled Cholesky Factorization
 
+![](figs/potrf.drawio.png)
+
 
 
 ## OpenMP API
