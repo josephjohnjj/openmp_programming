@@ -12,16 +12,21 @@ Prerequisite:
 
 ## Shared Memory
 
-![](figs/shmem_arch.drawio.png)
+<p align="center">
+  <img src="figs/shmem_arch.drawio.png" alt="Image Description">
+</p>
 
+In a shared memory system, multiple CPUs are organized into distinct regions known as NUMA regions. Each of these regions exhibits varying affinities towards specific portions of memory, and multiple CPUs can be present within each NUMA region. The provided diagram illustrates two NUMA regions, each with a single CPU. These CPUs possess multiple cores, each capable of independently executing arithmetic and logic operations. Furthermore, each core maintains its own L1 cache, and depending on the system's architecture, all cores in a NUMA region may share an L2 cache, while NUMA regions may share an L3 cache. The diagram in question depicts only L1 and L2 caches.
 
-In a shared memory system, multiple CPUs are grouped into different regions called NUMA regions. Each of these regions have a differennt affinity towards certain parts of the memory, and there can be multiple CPUs within each NUAM region. In the figure provided, there are two NUMA regions, each with one CPU. These CPUs have multiple cores, and each core can perform arithmentic and logic operations independently. Each core has its own L1 cache, and depending on the architecture all the cores may share a L2 cache and NUMA regions may shared and L3 cache. In the diagram provided, we're only showing L1 and L2 caches.
+When running a sequential program, we utilize just one core from one of the NUMA regions. However, the program's performance can be significantly enhanced if it can distribute concurrent tasks to different cores.
 
-When we are running a sequential program we are only utilizing one core from one of the NUMA regions, but the program will perform better if it can delegate the parts of the program that can be run concurrently to the different cores. 
+You can use the command `lstopo` to find the architecture of your machine. `lstopo` on Gadi login nodes will gie you the following:
 
 ## Threads 
 
-![](figs/threads.png)
+<p align="center">
+  <img src="figs/threads.png" alt="Image Description">
+</p>
 
 A thread is a sequential independent execution stream that executes different tasks in order. Typically, a thread is a constituent component of a process, and a single process can have multiple threads. Each thread maintains its own program counter, stack memory, and registers. Nevertheless, threads within the same process shares the heap memory and it can potentially share the same code and data.
 
@@ -34,7 +39,9 @@ The operating system assigns a thread to a core, allowing the thread to utilize 
 
 ## Fork-Join Parallelism
 
-![](figs/fork-join.png)
+<p align="center">
+  <img src="figs/fork-join.png" alt="Image Description">
+</p>
 
 The fork-join method is a parallel computing technique in which the program's execution branches or `forks` at specific points and later converges or `joins` at subsequent points. In the fork phase, individual threads execute parallel segments of the program that can be processed simultaneously. In the join phase, the program resumes its execution in a sequential manner, much like a traditional sequential program. OpenMP follows the fork-join model of paralleism. 
 
