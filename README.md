@@ -81,18 +81,18 @@ where
 
 $z_{0} = c$ 
 
-If the values of the complex numbers generated gets larger and larger then the choice of `c is` not in the Mandelbrot set. To plot an image the points inside the Mandelbrot set is given a particular colour and all other points are given a different colour based on the iteration required to determine they are outside the Mandelbrot set.
+If the values of the complex numbers generated gets larger and larger then the choice of $c$ is not in the Mandelbrot set. To plot an image the points inside the Mandelbrot set is given a particular colour and all other points are given a different colour based on the iteration required to determine they are outside the Mandelbrot set.
 
-In the Monte Carlo meothod, we generate psuedo random points in the complex plane, and then these points are tested if they are in the general Mandelbrot set or not. As can be imagined, for different `c` the calculatiin required to determine whether `c` is part of the Mandelbrot set is going to be different. We can use this properry of Mandelbrot set to demonstrate some features of OpenMP.
+In the Monte Carlo meothod, we generate psuedo random points in the complex plane, and then these points are tested if they are in the general Mandelbrot set or not. As can be imagined, for different $c$ the calculatiin required to determine whether $c$ is part of the Mandelbrot set is going to be different. We can use this properry of Mandelbrot set to demonstrate some features of OpenMP.
 
 ## Tiled Cholesky Factorization
 
 ![](figs/potrf.png)
 
-Given a Hermitian positive-definite matrix `A`, Cholesky factorization finds `L` such that
+Given a Hermitian positive-definite matrix $A$, Cholesky factorization finds $L$ such that
 $A = L * L^{T}$
 
-Where `L` is a lower triangular matrix with real and positive diagonal entries and  L^{T} is the conjugate transpose of L.
+Where $L$ is a lower triangular matrix with real and positive diagonal entries and  $L^{T}$ is the conjugate transpose of L.
 
 
 
