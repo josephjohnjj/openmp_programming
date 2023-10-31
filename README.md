@@ -73,7 +73,7 @@ These calculations are _embarassingle parellel_ and they can benefit from multi-
 
 ![](figs/mandelbrot.png)
 
-Mandelbrot set I generate a list of complex numbers using the formulae
+Mandelbrot set generates a list of complex numbers using the formulae
 
 $z_{n} = z^{2}_{n-1} + c$ 
 
@@ -85,14 +85,14 @@ If the values of the complex numbers generated gets larger and larger then the c
 
 In the Monte Carlo meothod, we generate psuedo random points in the complex plane, and then these points are tested if they are in the general Mandelbrot set or not. As can be imagined, for different $c$ the calculatiin required to determine whether $c$ is part of the Mandelbrot set is going to be different. We can use this properry of Mandelbrot set to demonstrate some features of OpenMP.
 
-## Tiled Cholesky Factorization
+## Tiled Cholesky Decomposition
 
 ![](figs/potrf.png)
 
-Given a Hermitian positive-definite matrix $A$, Cholesky factorization finds $L$ such that
+Given a Hermitian positive-definite matrix $A$, Cholesky decomposition finds $L$ such that
 $A = L * L^{T}$
 
-Where $L$ is a lower triangular matrix with real and positive diagonal entries and  $L^{T}$ is the conjugate transpose of L.
+Where $L$ is a lower triangular matrix with real and positive diagonal entries and  $L^{T}$ is the conjugate transpose of $L$. To find decomposition we can divide the matrix into tiles and operation on some tiles will depend on another opeartion on aother tile. This will create _happens-before_ relationship between the tiles. Due to this relation Tiled Cholesky Decomposition algorithm is a good candidate for task-based algorithm.
 
 
 
