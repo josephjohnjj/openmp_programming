@@ -67,12 +67,21 @@ $π/4 = N_{inner} / N_{total}$
 
 $π = 4 * (N_{inner} / N_{total})$
 
+These calculations are _embarassingle parellel_ and they can benefit from multi-threaded programming.
+
 ## Finding Mandelbrot Fractal Using Monte Carlo Sampling
 
 ![](figs/mandelbrot.png)
 
+Mandelbrot set I generate a list of complex numbers using the formulae
 
+$z_{n} = z^{2}_{n-1} + c$ 
 
+where
+
+$z_{0} = c$ 
+
+If the values of the complex numbersgenerated get larger and larger then the choice of `c is` not in the Mandelbrot set. 
 
 ## OpenMP API
 
