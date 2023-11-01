@@ -1,10 +1,10 @@
-CC 	= gcc
+CC 	= gcc-12
 CFLAGS	= -O3 -fopenmp 
 #CC	= icx
 #CFLAGS	= -O3 -qopenmp
 LDFLAGS	= -lm -lgomp
 
-all:	ompexample1 ompexample2 ompexample3 ompexample4 \
+all:	openmp_parallel_section openmp_reduction openmp_max_threads ompexample4 \
 	ompexample5 ompexample6 \
 	gpuexample1 \
 	openmp_tasks \
@@ -14,13 +14,13 @@ all:	ompexample1 ompexample2 ompexample3 ompexample4 \
 	openmp_taskgroups \
 	openmp_simd
 
-ompexample1:	ompexample1.c
+openmp_parallel_section:	openmp_parallel_section.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
-ompexample2:	ompexample2.c
+openmp_reduction:	openmp_reduction.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
-ompexample3:	ompexample3.c
+openmp_max_threads:	openmp_max_threads.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
 ompexample4:	ompexample4.c
@@ -60,5 +60,5 @@ clean:
 	/bin/rm -f a.out *.o *~ ompexample[1-6]
 	/bin/rm -f gpuexample[1-6]
 	/bin/rm -f openmp_tasks openmp_depend openmp_private openmp_if openmp_taskgroups
-	/bin/rm -f openmp_simd
+	/bin/rm -f openmp_simd openmp_parallel_section openmp_max_threads openmp_reduction
 
