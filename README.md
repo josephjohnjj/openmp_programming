@@ -134,6 +134,67 @@ A _parallel region_ is a structured block of code that is to be executed in para
 }
 ```
 
+As an example, consider the following code:
+
+```c
+#include <omp.h>
+#include <stdio.h>
+
+int main(void) 
+{
+
+  printf("Total number of threads allocated in the parellel section %d \n", omp_get_num_threads() );
+  #pragma omp parallel 
+  {
+    printf("This is run by thread %d \n", omp_get_thread_num());
+  }
+  
+  return 0;
+}
+```
+
+
+The above code is contained in file [`openmp_parallel_section.c`](./openmp/openmp_parallel_section.c). Compile it by typing:
+```
+make openmp_parallel_section
+```
+
+1. Run the code by typing `./openmp_parallel_section`.
+  
+2. Now run the code with 4 threads by first setting the `OMP_NUM_THREADS` variable to 4
+    
+        OMP_NUM_THREADS=4 ./openmp_parallel_section
+
+3. Now run the code by setting the `OMP_DYNAMIC` to true
+    
+        OMP_DYNAMIC=true ./openmp_parallel_section
+
+What difference do you see between the different runs?
+
+There is no guarantee that the requested number of threads will be allocated. `omp_get_num_threads()` provides the actual allocated thread count, and `omp_get_thread_num()` retrieves a thread's index. When designing an OpenMP program, focus on building the algorithm for the allocated threads, not the requested number. 
+
+Some other useful OpenMP routines are:
+
+*   [`omp_set_num_threads(np)`](https://www.openmp.org/spec-html/5.1/openmpsu120.html#x159-1920003.2.1): sets the number of parallel threads to be used for parallel regions
+*   [`omp_get_max_threads()`](https://www.openmp.org/spec-html/5.1/openmpsu122.html#x161-1940003.2.3): gives the maximum number of threads that could be used
+
+The above three functions are used in the program [`oopenmp_max_threads.c`](./openmp/openmp_max_threads.c).
+
+5. Compile and run the program `openmp_max_threads.c`. Run the program using `OMP_DYNAMIC=true ./openmp_max_threads 50`. How many threads are created? Now re-run using `OMP_DYNAMIC=false ./openmp_max_threads 50`. How many threads are created now?
+
+### The `reduction` Clause
+
+A [reduction clause](https://www.openmp.org/spec-html/5.1/openmpsu117.html#x152-1720002.21.5) can be added to the parallel directive. This specifies that the final values of certain variables are combined using the specified operation (or intrinsic function) at the end of the parallel region. For example, consider the program [`ompexample2.c`](./ompexample2.c), which demonstrates a number of reduction operations and also shows the use of the [`omp_get_thread_num()`](https://www.openmp.org/spec-html/5.1/openmpsu123.html#x162-1950003.2.4) routine to uniquely define each thread.
+
+4. Run the program [`openmp_reduction.c`](./openmp/openmp_reduction.c) with four threads and make sure you understand what is happening.
+    
+        make openmp_reduction
+        OMP_DYNAMIC=true ./openmp_parallel_section
+
+
+
+# COMPLETE
+
 The optional `clause`s can be used to define data sharing as follows:
 
 *   `shared(list)` specifies variables that are visible to all threads. If you specify a variable as shared, you are stating that all threads can safely share a single copy of the variable.
@@ -141,24 +202,7 @@ The optional `clause`s can be used to define data sharing as follows:
 *   `firstprivate(list)` specifies that each thread has its own local copy of each variable listed, which is initialized to the value that the variable has on entry to the block.
 *   `default(data-sharing-attribute)` - where for C/C++ the `data-sharing-attribute` is either `shared` or none. When you specify the default `data-sharing-attribute`, you declare the default for all variables in the code block to be shared or to have no default (none). _Note - Fortran also permits a default of `private`. This is not available in C/C++ since many of the standard libraries use global variables, and scoping these as local would give errors._
 
-As an example, consider the following code:
 
-```c
-#include <stdio.h>
-#include <omp.h>
-
-int main(void) {
-  int i = 1, j = 2;
-  printf(" Initial value of i %i and j %i \n", i, j);
-#pragma omp parallel default(shared) private(i)
-  {
-    printf(" Parallel value of i %i and j %i \n", i, j);
-    i = i + 1;
-  }
-  printf(" Final value of i %i and j %i \n", i, j);
-  return 0;
-}
-```
 
 The above code is contained in file [`ompexample1.c`](./ompexample1.c). Compile it by typing:
 
