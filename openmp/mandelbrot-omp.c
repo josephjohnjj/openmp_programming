@@ -30,7 +30,7 @@ Frederick Fung 2022
 //#include "gnuplot-iostream.h"
 
 #define MAXITER 100
-//#define OPENMP_TIMER
+#define OPENMP_TIMER
 
 
 
@@ -101,7 +101,7 @@ void gen_mandelbrot(const int *points){
     #pragma omp parallel default(none) firstprivate(step_i, step_j) private(c_num,i,j) shared(img, NPOINTS,fp)
     { 
        // worksharing loop
-       #pragma omp for schedule(dynamic) ordered
+       #pragma omp for schedule(static) ordered
         for (i = 0; i< NPOINTS; i++){
            for (j = 0; j< NPOINTS; j++){
             
@@ -118,10 +118,10 @@ void gen_mandelbrot(const int *points){
       }
     }
 
-    #ifdef OPENMP_TIMER
+   #ifdef OPENMP_TIMER
      double end = omp_get_wtime();
      printf("openmp walltime %f seconds\n ", end - start);
-     #endif
+   #endif
 
 
 

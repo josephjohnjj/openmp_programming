@@ -36,21 +36,17 @@ void calc_pi(int *hit, int *samples ){
     int count =0;
 
     double start = omp_get_wtime();
-        #pragma omp parallel private(x, y, i ) 
-         {
-          unsigned int seed = omp_get_thread_num()+123;
-          
-         #pragma omp for reduction(+:count)
-         for (i=0; i<*samples; i++){
-             
-            
-             x = rand_r(&seed)/ (double) RAND_MAX;
-             y = rand_r(&seed)/ (double) RAND_MAX;
-
-
+    #pragma omp parallel private(x, y, i ) 
+     {
+        unsigned int seed = omp_get_thread_num()+123;
+      
+        #pragma omp for reduction(+:count)
+        for (i=0; i<*samples; i++) {
+            x = rand_r(&seed)/ (double) RAND_MAX;
+            y = rand_r(&seed)/ (double) RAND_MAX;
             if (x*x + y*y <= 1.0f)  count+=1;
-             }
-         } // end of openmp  
+        }
+     } // end of openmp  
 
      double end = omp_get_wtime();
      printf("openmp walltime %f seconds\n ", end - start);
