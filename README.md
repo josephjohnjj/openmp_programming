@@ -48,59 +48,11 @@ The fork-join method is a parallel computing technique in which the program's ex
 ## Sample Application
 
 In this tutorial we will be mainly using 3 applications to demonstrate the different aspcts of OpenMP:
-1. Calculating the value of `pi` using monte carlo method.
-2. Finding Mandelbrot fractal by Monte Carlo sampling.
-3. Tiled Cholesky Factorization.
+1. Calculating the [value of `π`](./applications/pi.md) using monte carlo method.
+2. Finding [Mandelbrot](./applications/mandelbrot.md) fractal by Monte Carlo sampling.
+3. Tiled [Cholesky Factorization](./applications/cholesky.md).
 
 We will berifly explain each application, but it is not necessary know these application in detail to work throgh the tutorial. 
-
-### Calculating the Value of `π` Using Monte Carlo Method
-
-![](figs/pi.png)
-
-we have a circle of radius 0.5, enclosed by a 1 × 1 square. The area of the circle is:
-
-$πr^2 = π * 0.5^2 = π/4$. 
-
-The area of the square is 1 and the ratio of the area of the circle to the area of the square is:
-
-$area(circle) / area(square) = (π/4) / 1 = π/4$ 
-
-If we generate a large number of uniform points that falls within the square, some of the points will fall within circle and some outside it. The ratio of points inside the circle to the toatal number of points will be approximately equal to the ratio of areas of the circle and the square, ie, 
-
-$area(circle) / area(square) = N_{inner} / N_{total}$
-
-$π/4 = N_{inner} / N_{total}$
-
-$π = 4 * (N_{inner} / N_{total})$
-
-These calculations are _embarassingle parellel_ and they can benefit from multi-threaded programming.
-
-## Finding Mandelbrot Set Using Monte Carlo Sampling
-
-![](figs/mandelbrot.png)
-
-Mandelbrot set generates a list of complex numbers using the formulae
-
-$z_{n} = z^{2}_{n-1} + c$ 
-
-where
-
-$z_{0} = c$ 
-
-If the values of the complex numbers generated gets larger and larger then the choice of $c$ is not in the Mandelbrot set. To plot an image the points inside the Mandelbrot set is given a particular colour and all other points are given a different colour based on the iteration required to determine they are outside the Mandelbrot set.
-
-In the Monte Carlo meothod, we generate psuedo random points in the complex plane, and then these points are tested if they are in the general Mandelbrot set or not. As can be imagined, for different $c$ the calculatiin required to determine whether $c$ is part of the Mandelbrot set is going to be different. We can use this properry of Mandelbrot set to demonstrate some features of OpenMP.
-
-## Tiled Cholesky Decomposition
-
-![](figs/potrf.png)
-
-Given a Hermitian positive-definite matrix $A$, Cholesky decomposition finds $L$ such that
-$A = L * L^{T}$
-
-Where $L$ is a lower triangular matrix with real and positive diagonal entries and  $L^{T}$ is the conjugate transpose of $L$. To find decomposition we can divide the matrix into tiles and operation on some tiles will depend on another opeartion on aother tile. This will create _happens-before_ relationship between the tiles. Due to this relation Tiled Cholesky Decomposition algorithm is a good candidate for task-based algorithm.
-
 
 
 ## OpenMP API
@@ -154,7 +106,7 @@ int main(void)
 ```
 
 
-The above code is contained in file [`openmp_parallel_section.c`](./openmp/openmp_parallel_section.c). Compile it by typing:
+The above code is contained in file [`openmp_parallel_region.c`](./openmp/openmp_parallel_region.c). Compile it by typing:
 ```
 make openmp_parallel_section
 ```
@@ -231,59 +183,87 @@ The optional `clause`s can be used to define data sharing as follows:
           sum += i;
         }
     
-    Parallelize this summation by using OpenMP to manually divide (this means you are not to convert this to a `for` loop and use `#pragma omp for`) up the loop operations amongst the available OpenMP threads. Your parallel code must continue to use a `while` construct. Solution is available in [`exercise1.c`](./openmp/exercise1_solution.c).
+    Parallelize this summation by using OpenMP to manually divide (this means you are not to convert this to a `for` loop and use `#pragma omp for`) up the loop operations amongst the available OpenMP threads. Your parallel code must continue to use a `while` construct. Solution is available in [`exercise1_solution.c`](./openmp/exercise1_solution.c).
 
-### Race Condition
+### Race Condition and Critical Sections 
 
+A _race condition_ arises when two threads simultaneously access a shared variable. Initially, the first thread reads the variable, and shortly thereafter, the second thread reads the same value from that variable. Subsequently, both the first and second threads carry out their respective operations on the value, and a race ensues to determine which thread can write its value last to the shared variable. The final value preserved in the shared variable is that which is written by the thread that manages to write its value last, effectively overwriting any prior values set by other threads. 
 
+A _critical section_ refers to a segment of code responsible for accessing shared resources, such as variables or data structures. This section necessitates exclusive execution by a single process at any given moment to prevent the occurrence of race conditions and other synchronization-related problems.
+
+In the solution of the previous excercise you can see this race condition. Every time you run the program you may get a different value for sum. This problem can be addressed in OpenMP using `critical` or `atomic` construct.
+
+### The `critical` Construct
+
+The [critical construct](https://www.openmp.org/spec-html/5.1/openmpsu99.html#x132-1420002.19.1) ensures that a block of code is only executed by one processor at a time. Effectively this serializes portions of a parallel region.
+
+```c
+#pragma omp critical [(name)]
+{
+  /*structured block*/
+}
+```
+
+A thread will wait at the beginning of the critical section until no other thread in the team is executing that (named) section.
+
+### The `atomic` Construct
+
+The [atomic construct](https://www.openmp.org/spec-html/5.1/openmpsu105.html#x138-1480002.19.7) ensures that memory locations are accessed atomically, to help avoid race conditions or reads or writes that would result in indeterminate values.
+
+`#pragma omp atomic`
+
+The directive refers to the line of code immediately following it. Be aware that there may be an overhead associated with the setting and unsetting of locks - so use this directive and/or critical sections only when necessary. For example, we could use the atomic construct to parallelize an inner product:
+
+```c
+#pragma omp parallel for shared(a,b,sum) private(I,tmp)
+for (i = 0; i < n; i++) {
+  tmp = a[i] * b[i];
+  #pragma omp atomic
+  sum = sum + tmp;
+}
+```
+
+but the performance would be very poor!
+
+### Excercise 2
+
+8. The program [`exercise1.c`](./openmp/exercise1_solution.c) has a race condition. Solve this race condition using the the construct `atomic`. The solutions are availble in [`exercise2_solution.c`](./openmp/exercise2_solution.c).
+
+### The Worksharing-Loop Construct (`for`)
+
+In the program [`exercise2_solution.c`](./openmp/exercise2_solution.c), we parallelized a loop by manually assigning different loop indices to different threads. With `for` loops, OpenMP provides the [worksharing-loop construct](https://www.openmp.org/spec-html/5.1/openmpsu48.html#x73-730002.11.4) to do this for you. This directive is placed immediately before a for loop and automatically partitions the loop iterations across the available threads.
+
+```c
+#pragma omp for [clause[[,]clause ...]
+for (...) { ... }
+```
+
+[openmp_parallel_for.c](./openmp/openmp_parallel_for.c) demonstrates how the work the `for` construct works. Note that `for` construct only handles the distribution of work to different threads. We still have to manage the critical sections and make sure there are no race conditions.
+
+### Exercise 3
+
+[exercise3.c](./openmp/exercise3.c) calculates the value [`π` Using Monte Carlo Method](./applications/pi.md). Parallelize the program using the `for` construct. The solution is available in [exercise3_solution.c](./openmp/exercise3_solution.c).
+
+### Schedule
+
+An important optional clause is the `schedule(type[,chunk])` clause. This can be used to define specifically how the iterations are divided amongst the different threads. Two distribution schemes are:
+
+*   `(static,chunk-size)`: iterations are divided into pieces of a size specified by chunk and these chunks are then assigned to threads in a round-robin fashion.
+*   `(dynamic,chunk-size)`: iterations are divided into pieces of a size specified by chunk. As each thread finishes a chunk, it dynamically obtains the next available chunk of loop indices.
+
+7. The program [`ompexample5.c`](./ompexample5.c) computes the value of $\pi$ by numerically integrating the function $1/(1+x^2)$ between the values of 0 and 1 using the trapezoid method (the value of this integral is $\pi/4$). The code divides the domain $[0..1]$ into N trapezoids, where the area of each trapezoid is given by the average length of the two parallel sides times the width of the trapezoid. The lengths of the two parallel sides are given by the values of the function $1/(1+x^2)$ for the lower and upper value of $x$ for that domain. Parallelize this code using the `omp parallel for` directive.
+8. If the `number_of_segments` used in the integration is 100, what is the relative error in the value of $\pi$? Is this error due to rounding or truncation error?
+    
 # COMPLETE
 
 
 
 
 
-The above code is contained in file [`ompexample1.c`](./ompexample1.c). Compile it by typing:
 
-```
-make ompexample1
-```
 
-1. Run the code with one thread by typing `./ompexample1`. What values are printed out for `i` and `j`, and why?
-    
-2. Now run the code with 80 threads by first setting the `OMP_NUM_THREADS` variable
-    
-        OMP_NUM_THREADS=80 ./ompexample1
-    
-    What is printed out now? (Make sure you have 80 threads). Now add `OMP_DYNAMIC=true` to the command and run it again. Explain why these values are printed.
-3.  Explain the effect of changing `private(i)` to `firstprivate(i)`. What happens if you change it to `lastprivate(i)`?
 
-### The `reduction` Clause
 
-A [reduction clause](https://www.openmp.org/spec-html/5.1/openmpsu117.html#x152-1720002.21.5) can be added to the parallel directive. This specifies that the final values of certain variables are combined using the specified operation (or intrinsic function) at the end of the parallel region. For example, consider the program [`ompexample2.c`](./ompexample2.c), which demonstrates a number of reduction operations and also shows the use of the [`omp_get_thread_num()`](https://www.openmp.org/spec-html/5.1/openmpsu123.html#x162-1950003.2.4) routine to uniquely define each thread.
-
-4. Run the program `ompexample2.c` with four threads and make sure you understand what is happening.
-
-Some other useful OpenMP routines are:
-
-*   [`omp_set_num_threads(np)`](https://www.openmp.org/spec-html/5.1/openmpsu120.html#x159-1920003.2.1): sets the number of parallel threads to be used for parallel regions
-*   [`omp_get_num_threads()`](https://www.openmp.org/spec-html/5.1/openmpsu121.html#x160-1930003.2.2): returns the number of threads currently executing (note this is 1 unless you are in a parallel region)
-*   [`omp_get_max_threads()`](https://www.openmp.org/spec-html/5.1/openmpsu122.html#x161-1940003.2.3): gives the maximum number of threads that could be used
-
-The above three functions are used in the program [`ompexample3.c`](./ompexample3.c).
-
-5. Compile and run the program `ompexample3.c`. Run the program using `OMP_DYNAMIC=true ./ompexample3 50`. How many threads are created? Now re-run using `OMP_DYNAMIC=false ./ompexample3 50`. How many threads are created now?
-
-6. The program [`ompexample4.c`](./ompexample4.c) computes the sum of all integers from 1 to `num_elem`, and creates `p` OpenMP threads. Currently, this task is performed using the following loop, using only the main thread:
-    
-        sum = 0;
-        i = 0;
-        
-        while (i < nele) {
-          i++;
-          sum += i;
-        }
-    
-    Parallelize this summation by using OpenMP to manually divide (this means you are not to convert this to a `for` loop and use `#pragma omp for`) up the loop operations amongst the available OpenMP threads. Your parallel code must continue to use a `while` construct.
 
 ### The Worksharing-Loop Construct (`for`)
 
@@ -323,37 +303,7 @@ Certain pieces of code you may only want to run on one thread - even though mult
 
 By default, all other threads will wait at the end of the structured block until the thread executing that block has completed. You can avoid this by augmenting the single directive with a `nowait` clause.
 
-### The `critical` Construct
 
-In some instances, interactions between threads may lead to wrong (or runtime variable) results. This can arise because two threads are manipulating the same data objects at the same time, and the result depends on which thread happened to start first. The [critical construct](https://www.openmp.org/spec-html/5.1/openmpsu99.html#x132-1420002.19.1) ensures that a block of code is only executed by one processor at a time. Effectively this serializes portions of a parallel region.
-
-```c
-#pragma omp critical [(name)]
-{
-  /*structured block*/
-}
-```
-
-A thread will wait at the beginning of the critical section until no other thread in the team is executing that (named) section.
-
-### The `atomic` Construct
-
-The [atomic construct](https://www.openmp.org/spec-html/5.1/openmpsu105.html#x138-1480002.19.7) ensures that memory locations are accessed atomically, to help avoid race conditions or reads or writes that would result in indeterminate values.
-
-`#pragma omp atomic`
-
-The directive refers to the line of code immediately following it. Be aware that there may be an overhead associated with the setting and unsetting of locks - so use this directive and/or critical sections only when necessary. For example, we could use the atomic construct to parallelize an inner product:
-
-```c
-#pragma omp parallel for shared(a,b,sum) private(I,tmp)
-for (i = 0; i < n; i++) {
-  tmp = a[i] * b[i];
-  #pragma omp atomic
-  sum = sum + tmp;
-}
-```
-
-but the performance would be very poor!
 
 9. Often, it is useful to have a shared counter that can be used to implement load balancing. Program [`ompexample6.c`](./ompexample6.c) is an attempt to implement a shared counter. However, it does not work correctly (try it for various values of `maxtasks`). Explain why the current version does not work correctly.
 10. Fix `ompexample6.c` so it works correctly.
