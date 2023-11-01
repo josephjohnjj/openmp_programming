@@ -4,7 +4,7 @@ CFLAGS	= -O3 -fopenmp
 #CFLAGS	= -O3 -qopenmp
 LDFLAGS	= -lm -lgomp
 
-all:	openmp_parallel_section openmp_reduction openmp_max_threads ompexample4 \
+all:	openmp_parallel_section openmp_reduction openmp_max_threads exercise1 \
 	ompexample5 ompexample6 \
 	gpuexample1 \
 	openmp_tasks \
@@ -23,7 +23,10 @@ openmp_reduction:	openmp_reduction.c
 openmp_max_threads:	openmp_max_threads.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
-ompexample4:	ompexample4.c
+exercise1:	exercise1.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
+exercise1_solution:	exercise1_solution.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
 ompexample5:	ompexample5.c
@@ -39,7 +42,7 @@ openmp_tasks:	openmp_tasks.c
 openmp_depend:	openmp_depend.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
-openmp_private:	openmp_private.c
+openmp_datasharing:	openmp_datasharing.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
 openmp_if:	openmp_if.c
@@ -59,6 +62,7 @@ openmp_simd: openmp_simd.c
 clean:
 	/bin/rm -f a.out *.o *~ ompexample[1-6]
 	/bin/rm -f gpuexample[1-6]
-	/bin/rm -f openmp_tasks openmp_depend openmp_private openmp_if openmp_taskgroups
+	/bin/rm -f openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups
 	/bin/rm -f openmp_simd openmp_parallel_section openmp_max_threads openmp_reduction
+	/bin/rm -f exercise1 exercise1_solution
 

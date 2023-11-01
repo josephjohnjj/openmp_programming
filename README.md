@@ -180,17 +180,32 @@ Some other useful OpenMP routines are:
 
 The above three functions are used in the program [`oopenmp_max_threads.c`](./openmp/openmp_max_threads.c).
 
-5. Compile and run the program `openmp_max_threads.c`. Run the program using `OMP_DYNAMIC=true ./openmp_max_threads 50`. How many threads are created? Now re-run using `OMP_DYNAMIC=false ./openmp_max_threads 50`. How many threads are created now?
+4. Compile and run the program `openmp_max_threads.c`. Run the program using `OMP_DYNAMIC=true ./openmp_max_threads 50`. How many threads are created? Now re-run using `OMP_DYNAMIC=false ./openmp_max_threads 50`. How many threads are created now?
 
 ### The `reduction` Clause
 
 A [reduction clause](https://www.openmp.org/spec-html/5.1/openmpsu117.html#x152-1720002.21.5) can be added to the parallel directive. This specifies that the final values of certain variables are combined using the specified operation (or intrinsic function) at the end of the parallel region. For example, consider the program [`ompexample2.c`](./ompexample2.c), which demonstrates a number of reduction operations and also shows the use of the [`omp_get_thread_num()`](https://www.openmp.org/spec-html/5.1/openmpsu123.html#x162-1950003.2.4) routine to uniquely define each thread.
 
-6. Run the program [`openmp_reduction.c`](./openmp/openmp_reduction.c) with four threads and make sure you understand what is happening.
+| Operator | Initial Value |
+|--------- |--------- |
+| + | 0 |
+| - | 0 |
+| * | 1 |
+| & | ~ 0 |
+| | | 0 |
+| ^ | 0|
+| && | 1 |
+| || | 0 |
+| max | Least representable number  |
+| min | Largest representable number  |
+
+
+5. Run the program [`openmp_reduction.c`](./openmp/openmp_reduction.c) with four threads and make sure you understand what is happening.
     
         make openmp_reduction
         OMP_DYNAMIC=true ./openmp_parallel_section
 
+### The Datasharing Clause
 
 The optional `clause`s can be used to define data sharing as follows:
 
@@ -203,6 +218,23 @@ The optional `clause`s can be used to define data sharing as follows:
     
         make openmp_datasharing
         OMP_DYNAMIC=true ./openmp_datasharing
+
+### Excercise 1
+
+7. The program [`exercise1.c`](./openmp/exercise1.c) computes the sum of all integers from 1 to `num_elem`, and creates `p` OpenMP threads. Currently, this task is performed using the following loop, using only the main thread:
+    
+        sum = 0;
+        i = 0;
+        
+        while (i < nele) {
+          i++;
+          sum += i;
+        }
+    
+    Parallelize this summation by using OpenMP to manually divide (this means you are not to convert this to a `for` loop and use `#pragma omp for`) up the loop operations amongst the available OpenMP threads. Your parallel code must continue to use a `while` construct. Solution is available in [`exercise1.c`](./openmp/exercise1_solution.c).
+
+### Race Condition
+
 
 # COMPLETE
 
