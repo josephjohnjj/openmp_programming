@@ -186,14 +186,11 @@ The above three functions are used in the program [`oopenmp_max_threads.c`](./op
 
 A [reduction clause](https://www.openmp.org/spec-html/5.1/openmpsu117.html#x152-1720002.21.5) can be added to the parallel directive. This specifies that the final values of certain variables are combined using the specified operation (or intrinsic function) at the end of the parallel region. For example, consider the program [`ompexample2.c`](./ompexample2.c), which demonstrates a number of reduction operations and also shows the use of the [`omp_get_thread_num()`](https://www.openmp.org/spec-html/5.1/openmpsu123.html#x162-1950003.2.4) routine to uniquely define each thread.
 
-4. Run the program [`openmp_reduction.c`](./openmp/openmp_reduction.c) with four threads and make sure you understand what is happening.
+6. Run the program [`openmp_reduction.c`](./openmp/openmp_reduction.c) with four threads and make sure you understand what is happening.
     
         make openmp_reduction
         OMP_DYNAMIC=true ./openmp_parallel_section
 
-
-
-# COMPLETE
 
 The optional `clause`s can be used to define data sharing as follows:
 
@@ -201,6 +198,15 @@ The optional `clause`s can be used to define data sharing as follows:
 *   `private(list)` specifies that each thread has its own uninitialized local copy of each variable listed.
 *   `firstprivate(list)` specifies that each thread has its own local copy of each variable listed, which is initialized to the value that the variable has on entry to the block.
 *   `default(data-sharing-attribute)` - where for C/C++ the `data-sharing-attribute` is either `shared` or none. When you specify the default `data-sharing-attribute`, you declare the default for all variables in the code block to be shared or to have no default (none). _Note - Fortran also permits a default of `private`. This is not available in C/C++ since many of the standard libraries use global variables, and scoping these as local would give errors._
+
+6. Run the program [`./openmp_datasharing.c`](./openmp/./openmp_datasharing.c) with four threads and identtify the difference between the different clauses.
+    
+        make openmp_datasharing
+        OMP_DYNAMIC=true ./openmp_datasharing
+
+# COMPLETE
+
+
 
 
 
