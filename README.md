@@ -244,7 +244,7 @@ for (...) { ... }
 
 9. [exercise3.c](./openmp/exercise3.c) calculates the value [`π` Using Monte Carlo Method](./applications/pi.md). Parallelize the program using the `for` construct. The solution is available in [exercise3_solution.c](./openmp/exercise3_solution.c).
 
-### Schedule
+### The `schedule` Construct
 
 An important optional clause is the `schedule(type[,chunk])` clause. This can be used to define specifically how the iterations are divided amongst the different threads. Two distribution schemes are:
 
@@ -296,6 +296,7 @@ or using the ['master` construct](https://www.openmp.org/spec-html/5.0/openmpse2
 {
   /*structured block*/
 }
+```
 
 In the `single` construct the thread that encounters the code block first, executes it. While in the `master` construct the master thread always executes the code.
 
