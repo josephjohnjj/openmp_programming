@@ -330,11 +330,6 @@ A program can be divided into different sections. Each of these section can be c
 
 16. [openmp_sections.c](./openmp/openmp_sections.c) demonstrates how the `sections` construct works.
 
-
-
-# COMPLETE
-
-
 ### The `if` Clause
 
 `if` clause specifies whether a code segment should be executed in parallel or in serial. `if` clause applies to `parallel`, `for` and `sections`.
@@ -349,6 +344,11 @@ else {
 }
 ```
 
+All parallel programs are bound by the [Amdhal's Law](https://en.wikipedia.org/wiki/Amdahl%27s_law) and in addition lanching threads have a non-trivial cost. So running things in parallel may not be helpful if the work to paralleised is trivial. We can use the you `if` clause to run things in parallel only if we have non-trivial work to parellelise. 
+
+17. The program [openmp_if.c](./openmp/openmp_if.c) demonstrates how you can use the `if` clause. Run the program with different combination of _threads_ and _elements_. What difference do you see? 
+18. Change the _THRESHOLD_ value in the program. What difference do you see? 
+
 ### The `simd` Clause
 
 The `simd` construct facilitates the concurrent execution of multiple iterations within associated loops by utilizing SIMD instructions. Each parallel iteration is processed by a distinct SIMD lane.
@@ -361,6 +361,9 @@ for (int k = 0; k < LIMIT; k++) {
 }
 ```
 ![](figs/simd.png)
+
+19. The program [openmp_if.c](./openmp/openmp_if.c) demonstrates how you can use the `simd` clause.
+
 
 ## Task-based Computing in OpenMP
 
