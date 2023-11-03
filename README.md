@@ -242,7 +242,7 @@ for (...) { ... }
 
 ### Exercise 3
 
-[exercise3.c](./openmp/exercise3.c) calculates the value [`π` Using Monte Carlo Method](./applications/pi.md). Parallelize the program using the `for` construct. The solution is available in [exercise3_solution.c](./openmp/exercise3_solution.c).
+9. [exercise3.c](./openmp/exercise3.c) calculates the value [`π` Using Monte Carlo Method](./applications/pi.md). Parallelize the program using the `for` construct. The solution is available in [exercise3_solution.c](./openmp/exercise3_solution.c).
 
 ### Schedule
 
@@ -251,36 +251,11 @@ An important optional clause is the `schedule(type[,chunk])` clause. This can be
 *   `(static,chunk-size)`: iterations are divided into pieces of a size specified by chunk and these chunks are then assigned to threads in a round-robin fashion.
 *   `(dynamic,chunk-size)`: iterations are divided into pieces of a size specified by chunk. As each thread finishes a chunk, it dynamically obtains the next available chunk of loop indices.
 
-7. The program [`ompexample5.c`](./ompexample5.c) computes the value of $\pi$ by numerically integrating the function $1/(1+x^2)$ between the values of 0 and 1 using the trapezoid method (the value of this integral is $\pi/4$). The code divides the domain $[0..1]$ into N trapezoids, where the area of each trapezoid is given by the average length of the two parallel sides times the width of the trapezoid. The lengths of the two parallel sides are given by the values of the function $1/(1+x^2)$ for the lower and upper value of $x$ for that domain. Parallelize this code using the `omp parallel for` directive.
-8. If the `number_of_segments` used in the integration is 100, what is the relative error in the value of $\pi$? Is this error due to rounding or truncation error?
-    
-# COMPLETE
+10. [openmp_schedule.c](./openmp/openmp_schedule.c) demonstrates how the two scheduling options differ from one another. 
 
+### Exercise 4
 
-
-
-
-
-
-
-
-
-### The Worksharing-Loop Construct (`for`)
-
-In the above example, you parallelized a loop by manually assigning different loop indices to different threads. With `for` loops, OpenMP provides the [worksharing-loop construct](https://www.openmp.org/spec-html/5.1/openmpsu48.html#x73-730002.11.4) to do this for you. This directive is placed immediately before a for loop and automatically partitions the loop iterations across the available threads.
-
-```c
-#pragma omp for [clause[[,]clause ...]
-for (...) { ... }
-```
-
-An important optional clause is the `schedule(type[,chunk])` clause. This can be used to define specifically how the iterations are divided amongst the different threads. Two distribution schemes are:
-
-*   `(static,chunk-size)`: iterations are divided into pieces of a size specified by chunk and these chunks are then assigned to threads in a round-robin fashion.
-*   `(dynamic,chunk-size)`: iterations are divided into pieces of a size specified by chunk. As each thread finishes a chunk, it dynamically obtains the next available chunk of loop indices.
-
-7. The program [`ompexample5.c`](./ompexample5.c) computes the value of $\pi$ by numerically integrating the function $1/(1+x^2)$ between the values of 0 and 1 using the trapezoid method (the value of this integral is $\pi/4$). The code divides the domain $[0..1]$ into N trapezoids, where the area of each trapezoid is given by the average length of the two parallel sides times the width of the trapezoid. The lengths of the two parallel sides are given by the values of the function $1/(1+x^2)$ for the lower and upper value of $x$ for that domain. Parallelize this code using the `omp parallel for` directive.
-8. If the `number_of_segments` used in the integration is 100, what is the relative error in the value of $\pi$? Is this error due to rounding or truncation error?
+11. The program [exercise4.c](./openmp/exercise4.c) generates the [mandelbrot](./applications/mandelbrot.md) set. Paralleize the program using different OpenMP directives. Test how `static` and `dynamic` influences the performance of the program. The solution is available in [exercise4_solution.c](./openmp/exercise4_solution.c).
 
 ### The `barrier` Construct
 
@@ -288,9 +263,15 @@ In any parallel program, there will be certain points where you wish to synchron
 
 `#pragma omp barrier`
 
-All threads must arrive at the barrier before any thread can continue.
+All threads must arrive at the barrier before any thread can continue. Some OpenMP constructs have implicit barriers. 
 
-### The `single` Construct
+12. Program [openmp_barrier.c](./openmp/openmp_barrier.c) demonstrates the working of implicit and explicit barriers. 
+
+### `nowait` Construct
+
+The `nowait` clause overrides any synchronization that would otherwise occur at the end of a construct. Program [openmp_nowait.c](./openmp/openmp_nowait.c) demonstrates how we can use nowait with `for` construct.
+
+### The `single` and `master` Construct
 
 Certain pieces of code you may only want to run on one thread - even though multiple threads are executing. For example, you often only want output to be printed once from one thread. This can be achieved using the [single construct](https://www.openmp.org/spec-html/5.1/openmpsu43.html#x67-670002.10.2):
 
@@ -301,19 +282,24 @@ Certain pieces of code you may only want to run on one thread - even though mult
 }
 ```
 
+or using the ['master`` construct](https://www.openmp.org/spec-html/5.0/openmpse24.html)
+
+```c
+#pragma omp master [clause]
+{
+  /*structured block*/
+}
+
+In the `single` construct the thread that encounters the code block first, executes it. While in the `master` construct the master thread always executes the code.
+
 By default, all other threads will wait at the end of the structured block until the thread executing that block has completed. You can avoid this by augmenting the single directive with a `nowait` clause.
 
-
-
-9. Often, it is useful to have a shared counter that can be used to implement load balancing. Program [`ompexample6.c`](./ompexample6.c) is an attempt to implement a shared counter. However, it does not work correctly (try it for various values of `maxtasks`). Explain why the current version does not work correctly.
-10. Fix `ompexample6.c` so it works correctly.
-11. Return to `ompexample2`. Set the number of threads to 4 and run the code. Now recompile the code using `icx` instead of `gcc`. If you look in the makefile and remove the '#' from the third and fourth lines, this will activate the `icx` compiler. You will need to enter
-    
-        module load intel-compiler
-    
-    to add `icx` to your command path. Now re-run this example with `OMP_DYNAMIC=true`. How many threads are used? Why might the behaviour be different?
+13. [openmp_single](./openmp/openmp_single.c) demonstrates how the `single` construct works
+14, [openmp_master](./openmp/openmp_master.c) demonstrates how the `master` construct works. 
 
 ### The `sections` Construct
+
+![](figs/sections.png)
 
 A program can be divided into different sections. Each of these section can be completed by a separate thread. This is especially usefull when the sections are independent of one another.
 
@@ -334,33 +320,12 @@ A program can be divided into different sections. Each of these section can be c
 }
 ```
 
-![](figs/sections.png)
+13. [openmp_sections](./openmp/openmp_sections.c) demonstrates how the `sections` construct works.
 
 
 
-### The  Visibility Clauses
+# COMPLETE
 
-1. The `private` clause declares the variables in the list to be private to each thread in a team.
-2. The `firstprivate` clause provides a superset of the functionality provided by the private clause. The private variable is initialized by the original value of the variable when the parallel construct is encountered.
-3. The `lastprivate` clause provides a superset of the functionality provided by the private clause. The private variable is updated after the end of the parallel construct.
-4. The `shared` clause declares the variables in the list to be shared among all the threads in a team. All threads within a team access the same storage area for shared variables.
-
-```c
-#pragma omp parallel for private(x)
-{
-    ...
-}
-
-#pragma omp parallel for firstprivate(x)
-{
-    ...
-}
-
-#pragma omp parallel for lastprivate(x)
-{
-    ...
-}
-```
 
 ### The `if` Clause
 
