@@ -6,7 +6,7 @@ LDFLAGS	= -lm -lgomp
 
 all:	openmp_parallel_region openmp_reduction openmp_max_threads \
 	openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups openmp_simd \
-	openmp_schedule \
+	openmp_schedule openmp_master openmp_single \
 	exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution 
 
 openmp_parallel_region:	openmp_parallel_region.c
@@ -24,12 +24,15 @@ openmp_datasharing: openmp_datasharing.c
 openmp_schedule:	openmp_schedule.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
+openmp_single:	openmp_single.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
+openmp_master:	openmp_master.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
 openmp_tasks:	openmp_tasks.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 openmp_depend:	openmp_depend.c
-	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
-
-openmp_datasharing:	openmp_datasharing.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
 openmp_if:	openmp_if.c
@@ -68,7 +71,7 @@ clean:
 	/bin/rm -f a.out *.o *~ ompexample[1-6]
 	/bin/rm -f gpuexample[1-6]
 	/bin/rm -f openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups openmp_parallel_region
-	/bin/rm -f openmp_simd openmp_parallel_section openmp_max_threads openmp_reduction
-	/bin/rm -f exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution
+	/bin/rm -f openmp_simd openmp_parallel_section openmp_max_threads openmp_reduction openmp_master openmp_schedule openmp_single 
+	/bin/rm -f exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution 
 	/bin/rm -f *.csv
 
