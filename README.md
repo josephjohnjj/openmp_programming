@@ -280,7 +280,7 @@ for (...) { ... }
 
 ### The `single` and `master` Construct
 
-Certain pieces of code you may only want to run on one thread - even though multiple threads are executing. For example, you often only want output to be printed once from one thread. This can be achieved using the [single construct](https://www.openmp.org/spec-html/5.1/openmpsu43.html#x67-670002.10.2):
+Certain pieces of code you may only want to run on one thread - even though multiple threads are executing. For example, you often only want output to be printed once from one thread. This can be achieved using the [`single` construct](https://www.openmp.org/spec-html/5.1/openmpsu43.html#x67-670002.10.2):
 
 ```c
 #pragma omp single [clause]
@@ -289,7 +289,7 @@ Certain pieces of code you may only want to run on one thread - even though mult
 }
 ```
 
-or using the ['master`` construct](https://www.openmp.org/spec-html/5.0/openmpse24.html)
+or using the ['master` construct](https://www.openmp.org/spec-html/5.0/openmpse24.html)
 
 ```c
 #pragma omp master [clause]
@@ -327,7 +327,7 @@ A program can be divided into different sections. Each of these section can be c
 }
 ```
 
-16. [openmp_sections](./openmp/openmp_sections.c) demonstrates how the `sections` construct works.
+16. [openmp_sections.c](./openmp/openmp_sections.c) demonstrates how the `sections` construct works.
 
 
 
