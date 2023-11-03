@@ -269,7 +269,14 @@ All threads must arrive at the barrier before any thread can continue. Some Open
 
 ### `nowait` Construct
 
-The `nowait` clause overrides any synchronization that would otherwise occur at the end of a construct. Program [openmp_nowait.c](./openmp/openmp_nowait.c) demonstrates how we can use nowait with `for` construct.
+The `nowait` clause overrides any synchronization that would otherwise occur at the end of a construct. 
+
+```c
+#pragma omp for nowait [clause[[,]clause ...]
+for (...) { ... }
+```
+
+13. Program [openmp_nowait.c](./openmp/openmp_nowait.c) demonstrates how we can use nowait with `for` construct.
 
 ### The `single` and `master` Construct
 
@@ -294,8 +301,8 @@ In the `single` construct the thread that encounters the code block first, execu
 
 By default, all other threads will wait at the end of the structured block until the thread executing that block has completed. You can avoid this by augmenting the single directive with a `nowait` clause.
 
-13. [openmp_single](./openmp/openmp_single.c) demonstrates how the `single` construct works
-14, [openmp_master](./openmp/openmp_master.c) demonstrates how the `master` construct works. 
+14. [openmp_single](./openmp/openmp_single.c) demonstrates how the `single` construct works
+15. [openmp_master](./openmp/openmp_master.c) demonstrates how the `master` construct works. 
 
 ### The `sections` Construct
 
@@ -320,7 +327,7 @@ A program can be divided into different sections. Each of these section can be c
 }
 ```
 
-13. [openmp_sections](./openmp/openmp_sections.c) demonstrates how the `sections` construct works.
+16. [openmp_sections](./openmp/openmp_sections.c) demonstrates how the `sections` construct works.
 
 
 
