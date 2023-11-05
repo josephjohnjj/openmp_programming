@@ -362,7 +362,8 @@ for (int k = 0; k < LIMIT; k++) {
 ```
 ![](figs/simd.png)
 
-19. The program [openmp_if.c](./openmp/openmp_if.c) demonstrates how you can use the `simd` clause.
+19. The program [openmp_simd.c](./openmp/openmp_simd.c) demonstrates how you can use the `simd` clause.
+20. How does the performance differ with and without the `simd` clause?
 
 
 ## Task-based Computing in OpenMP
