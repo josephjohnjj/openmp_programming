@@ -462,63 +462,6 @@ for (i = 0; i < N; i++) {
 
 The `taskwait` construct dictates that the current task region remains suspended until the child tasks of the current task are completed. However, it does not indicate suspension until the descendants of the child tasks are finished. To synchronize tasks and their descendant tasks, you can enclose them within a `taskgroup` construct. 
 
-## Optional Material
-
-As mentioned in lectures all OpenMP constructs incur some overhead. As an application programmer it is important to have some feeling for the size of these overheads. (Also so you can beat up different vendors so that they produce better OpemMP implementations). In a paper presented to the European workshop on OpenMP (EWOMP) in 1999 Mark Bull (from Edinburgh Parallel Computing Centre - EPCC) presented a series of benchmarks for [Measuring Synchronization and Scheduling Overheads in OpenMP](./bullewomp1999final.pdf). The results are now somewhat old and were obtained with early versions of OpenMP enabled compilers. Thus if we repeated the benchmarks today I would expect improved results, but not orders of magnitude different.
-
-Mark Bull has since published an [updated paper](./bullewomp2001final.pdf) that augments the benchmark suite for OpenMP 2.0 and gives more recent results - but it is not necessary for you to read this paper. There are also some results on OpenMP 3.0 are presented in a paper by Mark's student [here](./taskbenchposter.pdf)).
-
-Read Mark Bull's [first paper](./bullewomp1999final.pdf) and then answer the following questions. Note that !$OMP DO is the Fortran equivalent to C directive #pragma omp for, and PARALLEL DO means the !$OMP PARALLEL and !$OMP DO directives are combined on a single line. Otherwise the Fortran/C relations should be obvious.
-
-12.  Download [OpenMP micro benchmarks](http://www.epcc.ed.ac.uk/research/computing/performance-characterisation-and-benchmarking/epcc-openmp-micro-benchmark-suite) and unpack and build it. You may need to add `-fopenmp` to `CFLAGS` and `LDFLAGS` in `Makefile.defs`.  
-    Run `syncbench` and fill the following table (set the number of threads by `OMP_NUM_THREADS=4 ./syncbench` etc):
-    
-                 
-          `Overhead of OpenMP constructs -------------------+-------+-------+-------+-------+-------+                     |   1T  |  2T   |  4T   |  8T   |  16T  | -------------------+-------+-------+-------+-------+-------+  PARALLEL FOR time  |       |       |       |       |       | -------------------+-------+-------+-------+-------+-------+  Barrier   time     |       |       |       |       |       | -------------------+-------+-------+-------+-------+-------+  Critical  time     |       |       |       |       |       | -------------------+-------+-------+-------+-------+-------+  Atomic    time     |       |       |       |       |       | -------------------+-------+-------+-------+-------+-------+  Reduction time     |       |       |       |       |       | -------------------+-------+-------+-------+-------+-------+`
-        
-    
-    Compare these results with the paper.
-13. Run schedbench and fill the following table:
-    
-        
-        Overhead of OpenMP for loop scheduling
-        -------------------+-------+-------+-------+-------+-------+ 
-                           |   1T  |  2T   |  4T   |  8T   |  16T  |
-        -------------------+-------+-------+-------+-------+-------+ 
-        STATIC     1 time  |       |       |       |       |       |
-        -------------------+-------+-------+-------+-------+-------+ 
-        STATIC     8 time  |       |       |       |       |       |
-        -------------------+-------+-------+-------+-------+-------+ 
-        STATIC   128 time  |       |       |       |       |       |
-        -------------------+-------+-------+-------+-------+-------+ 
-        DYNAMIC    1 time  |       |       |       |       |       |
-        -------------------+-------+-------+-------+-------+-------+ 
-        DYNAMIC    8 time  |       |       |       |       |       |
-        -------------------+-------+-------+-------+-------+-------+ 
-        DYNAMIC  128 time  |       |       |       |       |       |
-        -------------------+-------+-------+-------+-------+-------+ 
-        GUIDED     1 time  |       |       |       |       |       |
-        -------------------+-------+-------+-------+-------+-------+ 
-        GUIDED     8 time  |       |       |       |       |       |
-        -------------------+-------+-------+-------+-------+-------+ 
-        GUIDED   128 time  |       |       |       |       |       |
-        -------------------+-------+-------+-------+-------+-------+ 
-        
-    
-    Compare these results with the paper.
-
-In the following loop, a, b and c are all of type double:
-
-```c
-for (i=0; i < N; i++) { 
-  a[i] = a[i] + b[i]*c; 
-} 
-```
-
-There are no dependencies and the loop can in principle be run in parallel.
-
-14. Under what circumstances (values of N and numbers of threads) would it be advisable to parallelize the above loop on one of the NCI systems?
-15. If you inserted the #pragma omp parallel for directive, what sort of scheduling would be advisable to use?
 
 * * *
-This course is based on material developed by current and former ANU staff, including [Peter Strazdins](https://cecc.anu.edu.au/people/peter-strazdins), [Alistair Rendell](https://www.flinders.edu.au/people/alistair.rendell), and [Josh Milthorpe](http://www.milthorpe.org).
+This course is based on material developed by current and former ANU staff, including [Peter Strazdins](https://cecc.anu.edu.au/people/peter-strazdins), [Alistair Rendell](https://www.flinders.edu.au/people/alistair.rendell), [Josh Milthorpe](http://www.milthorpe.org), [Joseph John](http://josephjohn.org) and [Fred Fung](https://nci.org.au/research/people/fred-fung).
