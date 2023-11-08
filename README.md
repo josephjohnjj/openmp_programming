@@ -4,7 +4,8 @@ This tutorial demonstrates how we can use OpenMP for shared memory programming.
 
 Learning outcomes of the tutorial are:
 1. Learn how to program for shared memory using OpenMP.
-2. Learn how to offload computations to GPU using OpenMP.
+2. Learn how to use tasks in OpenMP.
+3. Learn how to offload computations to GPU using OpenMP.
 
 Prerequisite:
 1. Experience with C Programming.
@@ -478,6 +479,6 @@ The `taskwait` construct dictates that the current task region remains suspended
 27. The program [exercise5.c](./openmp/exercise5.c) implements the [Cholesky Factorization](./applications/cholesky.md) without any parallelization. Paralleize the program using different OpenMP task directives. The solution is available in [exercise5_solution.c](./openmp/exercise5_solution.c).
 
 
-* * *
+## Contributers
 This course is based on material developed by current and former ANU staff, including [Peter Strazdins](https://cecc.anu.edu.au/people/peter-strazdins), [Alistair Rendell](https://www.flinders.edu.au/people/alistair.rendell), [Josh Milthorpe](http://www.milthorpe.org), [Joseph John](http://josephjohn.org) and [Fred Fung](https://nci.org.au/research/people/fred-fung).
 
