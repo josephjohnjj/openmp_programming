@@ -6,7 +6,8 @@ LDFLAGS	= -lm -lgomp
 
 all:	openmp_parallel_region openmp_reduction openmp_max_threads \
 	openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups openmp_simd \
-	openmp_schedule openmp_master openmp_single \
+	openmp_schedule openmp_master openmp_single openmp_taskloop openmp_tied openmp_sections openmp_nowait \
+	openmp_parallel_for \
 	exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution 
 
 openmp_parallel_region:	openmp_parallel_region.c
@@ -27,6 +28,9 @@ openmp_schedule:	openmp_schedule.c
 openmp_single:	openmp_single.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
+openmp_parallel_for:	openmp_parallel_for.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
 openmp_master:	openmp_master.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
@@ -35,11 +39,23 @@ openmp_tasks:	openmp_tasks.c
 openmp_depend:	openmp_depend.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
+openmp_sections: openmp_sections.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
+openmp_nowait:	openmp_nowait.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
 openmp_if:	openmp_if.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
 openmp_taskgroups:	openmp_taskgroups.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)	
+
+openmp_taskloop:	openmp_taskloop.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)	
+
+openmp_tied	:	openmp_tied.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
 openmp_simd: openmp_simd.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)	
@@ -71,7 +87,8 @@ clean:
 	/bin/rm -f a.out *.o *~ ompexample[1-6]
 	/bin/rm -f gpuexample[1-6]
 	/bin/rm -f openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups openmp_parallel_region
-	/bin/rm -f openmp_simd openmp_parallel_section openmp_max_threads openmp_reduction openmp_master openmp_schedule openmp_single 
+	/bin/rm -f openmp_simd openmp_parallel_section openmp_max_threads openmp_reduction openmp_master openmp_schedule openmp_single
+	/bin/rm -f openmp_taskloop openmp_tied openmp_sections openmp_nowait openmp_parallel_for
 	/bin/rm -f exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution 
 	/bin/rm -f *.csv
 

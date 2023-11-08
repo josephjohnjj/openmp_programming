@@ -1,7 +1,7 @@
 #include <omp.h>
 #include <stdio.h>
 
-int main(void) 
+int main() 
 {
   int i = 0;
   omp_set_num_threads(4);

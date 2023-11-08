@@ -162,6 +162,7 @@ void cholesky(const size_t nsize, double *l) {
                              nsize);  // A[m][k] = A[m,k] A[k][k]^-1
     }
 
+    /** hint: use taskloop and depend clause*/
     for (int m = k + 1; m < num_blocks; m++) {
       size_t m_width = m < num_blocks - 1
                            ? BLOCK_SIZE
