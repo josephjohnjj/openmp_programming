@@ -292,7 +292,7 @@ Certain pieces of code you may only want to run on one thread - even though mult
 }
 ```
 
-or using the ['master` construct](https://www.openmp.org/spec-html/5.0/openmpse24.html)
+or using the [`master` construct](https://www.openmp.org/spec-html/5.0/openmpse24.html)
 
 ```c
 #pragma omp master [clause]
