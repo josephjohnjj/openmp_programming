@@ -171,7 +171,7 @@ The optional `clause`s can be used to define data sharing as follows:
         make openmp_datasharing
         OMP_DYNAMIC=true ./openmp_datasharing
 
-### Excercise 1
+### Exercise 1
 
 7. The program [`exercise1.c`](./openmp/exercise1.c) computes the sum of all integers from 1 to `num_elem`, and creates `p` OpenMP threads. Currently, this task is performed using the following loop, using only the main thread:
     
@@ -225,7 +225,7 @@ for (i = 0; i < n; i++) {
 
 but the performance would be very poor!
 
-### Excercise 2
+### Exercise 2
 
 8. The program [`exercise1.c`](./openmp/exercise1_solution.c) has a race condition. Solve this race condition using the the construct `atomic`. The solutions are availble in [`exercise2_solution.c`](./openmp/exercise2_solution.c).
 
@@ -391,6 +391,8 @@ int fib(int n)
 ```
 The code block immediatly after `task` construct will be the code a task will execute. The `#pragma omp taskwait` construct specifies a wait on the completion of child tasks of the current task.
 
+21. The program [openmp_tasks.c](./openmp/openmp_tasks.c) demonstrates how you can use the `task` construct.
+
 ![](figs/graph.png)
 
 ## The `depend` Construct
@@ -418,6 +420,8 @@ z = read_val(&x) + read_val(&y);
 
 One of the main advanatge of `depends` clause is that it removes the need of the `taskwait` clause. 
 
+22. The program [openmp_depend.c](./openmp/openmp_depend.c) demonstrates how you can use the `depends` construct.
+
 ### The `untied` Construct
 
 A task is tied if the code is executed by the same thread from beginning to end. Otherwise, the task is untied and the code can be executed by more than one thread. By default the tasks are tied in OpenMP, but this can result in performance issues. 
@@ -432,6 +436,8 @@ A task is tied if the code is executed by the same thread from beginning to end.
 ```
 The `taskyield` construct specifies that the current task can be suspended in favor of execution of a different task.
 
+23. The program [openmp_tied.c](./openmp/openmp_tied.c) demonstrates how you can use the `untied`  and `taskyield` construct.
+
 ![](figs/tied2.png)
 
 ### The `taskloop` Construct
@@ -444,6 +450,9 @@ for (i = 0; i < N; i++) {
     arr[i] = i * i;
 }
 ```
+
+24. The program [openmp_taskloop.c](./openmp/openmp_taskloop.c) demonstrates how you can use the `taskloop` construct.
+25. What difference do you see when you change the number of element and the number of tasks?
 
 ### The `taskgroup` Construct
 
@@ -462,6 +471,13 @@ for (i = 0; i < N; i++) {
 
 The `taskwait` construct dictates that the current task region remains suspended until the child tasks of the current task are completed. However, it does not indicate suspension until the descendants of the child tasks are finished. To synchronize tasks and their descendant tasks, you can enclose them within a `taskgroup` construct. 
 
+26. The program [openmp_taskgroups.c](./openmp/openmp_taskgroups.c) demonstrates how you can use the `taskgroup` construct.
+
+### Exercise 5
+
+27. The program [exercise5.c](./openmp/exercise5.c) implements the [Cholesky Factorization](./applications/cholesky.md) without any parallelization. Paralleize the program using different OpenMP task directives. The solution is available in [exercise5_solution.c](./openmp/exercise5_solution.c).
+
 
 * * *
 This course is based on material developed by current and former ANU staff, including [Peter Strazdins](https://cecc.anu.edu.au/people/peter-strazdins), [Alistair Rendell](https://www.flinders.edu.au/people/alistair.rendell), [Josh Milthorpe](http://www.milthorpe.org), [Joseph John](http://josephjohn.org) and [Fred Fung](https://nci.org.au/research/people/fred-fung).
+

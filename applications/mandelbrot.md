@@ -1,6 +1,6 @@
 # Finding Mandelbrot Set Using Monte Carlo Sampling
 
-![](figs/mandelbrot.png)
+![](../figs/mandelbrot.png)
 
 Mandelbrot set generates a list of complex numbers using the formulae
 

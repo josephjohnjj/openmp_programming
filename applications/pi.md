@@ -1,6 +1,6 @@
 # Calculating the Value of `π` Using Monte Carlo Method
 
-![](figs/pi.png)
+![](../figs/pi.png)
 
 we have a circle of radius 0.5, enclosed by a 1 × 1 square. The area of the circle is:
 

@@ -1,6 +1,6 @@
 # Tiled Cholesky Decomposition
 
-![](figs/potrf.png)
+![](../figs/potrf.png)
 
 Given a Hermitian positive-definite matrix $A$, Cholesky decomposition finds $L$ such that
 $A = L * L^{T}$

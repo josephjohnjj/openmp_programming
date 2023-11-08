@@ -8,7 +8,8 @@ all:	openmp_parallel_region openmp_reduction openmp_max_threads \
 	openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups openmp_simd \
 	openmp_schedule openmp_master openmp_single openmp_taskloop openmp_tied openmp_sections openmp_nowait \
 	openmp_parallel_for \
-	exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution 
+	exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution \
+	exercise4 exercise4_solution exercise5 exercise5_solution
 
 openmp_parallel_region:	openmp_parallel_region.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
@@ -78,6 +79,18 @@ exercise3:	exercise3.c
 exercise3_solution:	exercise3_solution.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
+exercise4:	exercise4.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
+exercise4_solution:	exercise4_solution.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
+exercise5:	exercise5.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
+exercise5_solution:	exercise5_solution.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
 .SUFFIXES:	.o .c
 
 %.o : %.c
@@ -90,5 +103,6 @@ clean:
 	/bin/rm -f openmp_simd openmp_parallel_section openmp_max_threads openmp_reduction openmp_master openmp_schedule openmp_single
 	/bin/rm -f openmp_taskloop openmp_tied openmp_sections openmp_nowait openmp_parallel_for
 	/bin/rm -f exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution 
+	/bin/rm -f exercise4 exercise4_solution exercise5 exercise5_solution 
 	/bin/rm -f *.csv
 
