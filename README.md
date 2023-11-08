@@ -169,7 +169,7 @@ The optional `clause`s can be used to define data sharing as follows:
 *   `firstprivate(list)` specifies that each thread has its own local copy of each variable listed, which is initialized to the value that the variable has on entry to the block.
 *   `default(data-sharing-attribute)` - where for C/C++ the `data-sharing-attribute` is either `shared` or none. When you specify the default `data-sharing-attribute`, you declare the default for all variables in the code block to be shared or to have no default (none). _Note - Fortran also permits a default of `private`. This is not available in C/C++ since many of the standard libraries use global variables, and scoping these as local would give errors._
 
-6. Run the program [`./openmp_datasharing.c`](./src/./openmp_datasharing.c) with four threads and identtify the difference between the different clauses.
+6. Run the program [`openmp_datasharing.c`](./src/./openmp_datasharing.c) with four threads and identtify the difference between the different clauses.
     
         make openmp_datasharing
         OMP_DYNAMIC=true ./openmp_datasharing
