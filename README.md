@@ -107,7 +107,7 @@ int main(void)
 ```
 
 
-The above code is contained in file [`openmp_parallel_region.c`](./openmp/openmp_parallel_region.c). Compile it by typing:
+The above code is contained in file [`openmp_parallel_region.c`](./src/openmp_parallel_region.c). Compile it by typing:
 ```
 make openmp_parallel_section
 ```
@@ -131,7 +131,7 @@ Some other useful OpenMP routines are:
 *   [`omp_set_num_threads(np)`](https://www.openmp.org/spec-html/5.1/openmpsu120.html#x159-1920003.2.1): sets the number of parallel threads to be used for parallel regions
 *   [`omp_get_max_threads()`](https://www.openmp.org/spec-html/5.1/openmpsu122.html#x161-1940003.2.3): gives the maximum number of threads that could be used
 
-The above three functions are used in the program [`oopenmp_max_threads.c`](./openmp/openmp_max_threads.c).
+The above three functions are used in the program [`oopenmp_max_threads.c`](./src/openmp_max_threads.c).
 
 4. Compile and run the program `openmp_max_threads.c`. Run the program using `OMP_DYNAMIC=true ./openmp_max_threads 50`. How many threads are created? Now re-run using `OMP_DYNAMIC=false ./openmp_max_threads 50`. How many threads are created now?
 
@@ -153,7 +153,7 @@ A [reduction clause](https://www.openmp.org/spec-html/5.1/openmpsu117.html#x152-
 | min | Largest representable number  |
 
 
-5. Run the program [`openmp_reduction.c`](./openmp/openmp_reduction.c) with four threads and make sure you understand what is happening.
+5. Run the program [`openmp_reduction.c`](./src/openmp_reduction.c) with four threads and make sure you understand what is happening.
     
         make openmp_reduction
         OMP_DYNAMIC=true ./openmp_parallel_section
@@ -167,14 +167,14 @@ The optional `clause`s can be used to define data sharing as follows:
 *   `firstprivate(list)` specifies that each thread has its own local copy of each variable listed, which is initialized to the value that the variable has on entry to the block.
 *   `default(data-sharing-attribute)` - where for C/C++ the `data-sharing-attribute` is either `shared` or none. When you specify the default `data-sharing-attribute`, you declare the default for all variables in the code block to be shared or to have no default (none). _Note - Fortran also permits a default of `private`. This is not available in C/C++ since many of the standard libraries use global variables, and scoping these as local would give errors._
 
-6. Run the program [`./openmp_datasharing.c`](./openmp/./openmp_datasharing.c) with four threads and identtify the difference between the different clauses.
+6. Run the program [`./openmp_datasharing.c`](./src/./openmp_datasharing.c) with four threads and identtify the difference between the different clauses.
     
         make openmp_datasharing
         OMP_DYNAMIC=true ./openmp_datasharing
 
 ### Exercise 1
 
-7. The program [`exercise1.c`](./openmp/exercise1.c) computes the sum of all integers from 1 to `num_elem`, and creates `p` OpenMP threads. Currently, this task is performed using the following loop, using only the main thread:
+7. The program [`exercise1.c`](./src/exercise1.c) computes the sum of all integers from 1 to `num_elem`, and creates `p` OpenMP threads. Currently, this task is performed using the following loop, using only the main thread:
     
         sum = 0;
         i = 0;
@@ -184,7 +184,7 @@ The optional `clause`s can be used to define data sharing as follows:
           sum += i;
         }
     
-    Parallelize this summation by using OpenMP to manually divide (this means you are not to convert this to a `for` loop and use `#pragma omp for`) up the loop operations amongst the available OpenMP threads. Your parallel code must continue to use a `while` construct. Solution is available in [`exercise1_solution.c`](./openmp/exercise1_solution.c).
+    Parallelize this summation by using OpenMP to manually divide (this means you are not to convert this to a `for` loop and use `#pragma omp for`) up the loop operations amongst the available OpenMP threads. Your parallel code must continue to use a `while` construct. Solution is available in [`exercise1_solution.c`](./src/exercise1_solution.c).
 
 ### Race Condition and Critical Sections 
 
@@ -228,22 +228,22 @@ but the performance would be very poor!
 
 ### Exercise 2
 
-8. The program [`exercise1.c`](./openmp/exercise1_solution.c) has a race condition. Solve this race condition using the the construct `atomic`. The solutions are availble in [`exercise2_solution.c`](./openmp/exercise2_solution.c).
+8. The program [`exercise1.c`](./src/exercise1_solution.c) has a race condition. Solve this race condition using the the construct `atomic`. The solutions are availble in [`exercise2_solution.c`](./src/exercise2_solution.c).
 
 ### The Worksharing-Loop Construct (`for`)
 
-In the program [`exercise2_solution.c`](./openmp/exercise2_solution.c), we parallelized a loop by manually assigning different loop indices to different threads. With `for` loops, OpenMP provides the [worksharing-loop construct](https://www.openmp.org/spec-html/5.1/openmpsu48.html#x73-730002.11.4) to do this for you. This directive is placed immediately before a for loop and automatically partitions the loop iterations across the available threads.
+In the program [`exercise2_solution.c`](./src/exercise2_solution.c), we parallelized a loop by manually assigning different loop indices to different threads. With `for` loops, OpenMP provides the [worksharing-loop construct](https://www.openmp.org/spec-html/5.1/openmpsu48.html#x73-730002.11.4) to do this for you. This directive is placed immediately before a for loop and automatically partitions the loop iterations across the available threads.
 
 ```c
 #pragma omp for [clause[[,]clause ...]
 for (...) { ... }
 ```
 
-[openmp_parallel_for.c](./openmp/openmp_parallel_for.c) demonstrates how the work the `for` construct works. Note that `for` construct only handles the distribution of work to different threads. We still have to manage the critical sections and make sure there are no race conditions.
+[openmp_parallel_for.c](./src/openmp_parallel_for.c) demonstrates how the work the `for` construct works. Note that `for` construct only handles the distribution of work to different threads. We still have to manage the critical sections and make sure there are no race conditions.
 
 ### Exercise 3
 
-9. [exercise3.c](./openmp/exercise3.c) calculates the value [`π` Using Monte Carlo Method](./applications/pi.md). Parallelize the program using the `for` construct. The solution is available in [exercise3_solution.c](./openmp/exercise3_solution.c).
+9. [exercise3.c](./src/exercise3.c) calculates the value [`π` Using Monte Carlo Method](./applications/pi.md). Parallelize the program using the `for` construct. The solution is available in [exercise3_solution.c](./src/exercise3_solution.c).
 
 ### The `schedule` Construct
 
@@ -252,11 +252,11 @@ An important optional clause is the `schedule(type[,chunk])` clause. This can be
 *   `(static,chunk-size)`: iterations are divided into pieces of a size specified by chunk and these chunks are then assigned to threads in a round-robin fashion.
 *   `(dynamic,chunk-size)`: iterations are divided into pieces of a size specified by chunk. As each thread finishes a chunk, it dynamically obtains the next available chunk of loop indices.
 
-10. [openmp_schedule.c](./openmp/openmp_schedule.c) demonstrates how the two scheduling options differ from one another. 
+10. [openmp_schedule.c](./src/openmp_schedule.c) demonstrates how the two scheduling options differ from one another. 
 
 ### Exercise 4
 
-11. The program [exercise4.c](./openmp/exercise4.c) generates the [mandelbrot](./applications/mandelbrot.md) set. Paralleize the program using different OpenMP directives. Test how `static` and `dynamic` influences the performance of the program. The solution is available in [exercise4_solution.c](./openmp/exercise4_solution.c).
+11. The program [exercise4.c](./src/exercise4.c) generates the [mandelbrot](./applications/mandelbrot.md) set. Paralleize the program using different OpenMP directives. Test how `static` and `dynamic` influences the performance of the program. The solution is available in [exercise4_solution.c](./src/exercise4_solution.c).
 
 ### The `barrier` Construct
 
@@ -266,7 +266,7 @@ In any parallel program, there will be certain points where you wish to synchron
 
 All threads must arrive at the barrier before any thread can continue. Some OpenMP constructs have implicit barriers. 
 
-12. Program [openmp_barrier.c](./openmp/openmp_barrier.c) demonstrates the working of implicit and explicit barriers. 
+12. Program [openmp_barrier.c](./src/openmp_barrier.c) demonstrates the working of implicit and explicit barriers. 
 
 ### `nowait` Construct
 
@@ -277,7 +277,7 @@ The `nowait` clause overrides any synchronization that would otherwise occur at 
 for (...) { ... }
 ```
 
-13. Program [openmp_nowait.c](./openmp/openmp_nowait.c) demonstrates how we can use nowait with `for` construct.
+13. Program [openmp_nowait.c](./src/openmp_nowait.c) demonstrates how we can use nowait with `for` construct.
 
 ### The `single` and `master` Construct
 
@@ -303,8 +303,8 @@ In the `single` construct the thread that encounters the code block first, execu
 
 By default, all other threads will wait at the end of the structured block until the thread executing that block has completed. You can avoid this by augmenting the single directive with a `nowait` clause.
 
-14. [openmp_single](./openmp/openmp_single.c) demonstrates how the `single` construct works
-15. [openmp_master](./openmp/openmp_master.c) demonstrates how the `master` construct works. 
+14. [openmp_single](./src/openmp_single.c) demonstrates how the `single` construct works
+15. [openmp_master](./src/openmp_master.c) demonstrates how the `master` construct works. 
 
 ### The `sections` Construct
 
@@ -329,7 +329,7 @@ A program can be divided into different sections. Each of these section can be c
 }
 ```
 
-16. [openmp_sections.c](./openmp/openmp_sections.c) demonstrates how the `sections` construct works.
+16. [openmp_sections.c](./src/openmp_sections.c) demonstrates how the `sections` construct works.
 
 ### The `if` Clause
 
@@ -347,7 +347,7 @@ else {
 
 All parallel programs are bound by the [Amdhal's Law](https://en.wikipedia.org/wiki/Amdahl%27s_law) and in addition lanching threads have a non-trivial cost. So running things in parallel may not be helpful if the work to paralleised is trivial. We can use the you `if` clause to run things in parallel only if we have non-trivial work to parellelise. 
 
-17. The program [openmp_if.c](./openmp/openmp_if.c) demonstrates how you can use the `if` clause. Run the program with different combination of _threads_ and _elements_. What difference do you see? 
+17. The program [openmp_if.c](./src/openmp_if.c) demonstrates how you can use the `if` clause. Run the program with different combination of _threads_ and _elements_. What difference do you see? 
 18. Change the _THRESHOLD_ value in the program. What difference do you see? 
 
 ### The `simd` Clause
@@ -363,7 +363,7 @@ for (int k = 0; k < LIMIT; k++) {
 ```
 ![](figs/simd.png)
 
-19. The program [openmp_simd.c](./openmp/openmp_simd.c) demonstrates how you can use the `simd` clause.
+19. The program [openmp_simd.c](./src/openmp_simd.c) demonstrates how you can use the `simd` clause.
 20. How does the performance differ with and without the `simd` clause?
 
 
@@ -392,7 +392,7 @@ int fib(int n)
 ```
 The code block immediatly after `task` construct will be the code a task will execute. The `#pragma omp taskwait` construct specifies a wait on the completion of child tasks of the current task.
 
-21. The program [openmp_tasks.c](./openmp/openmp_tasks.c) demonstrates how you can use the `task` construct.
+21. The program [openmp_tasks.c](./src/openmp_tasks.c) demonstrates how you can use the `task` construct.
 
 ![](figs/graph.png)
 
@@ -421,7 +421,7 @@ z = read_val(&x) + read_val(&y);
 
 One of the main advanatge of `depends` clause is that it removes the need of the `taskwait` clause. 
 
-22. The program [openmp_depend.c](./openmp/openmp_depend.c) demonstrates how you can use the `depends` construct.
+22. The program [openmp_depend.c](./src/openmp_depend.c) demonstrates how you can use the `depends` construct.
 
 ### The `untied` Construct
 
@@ -437,7 +437,7 @@ A task is tied if the code is executed by the same thread from beginning to end.
 ```
 The `taskyield` construct specifies that the current task can be suspended in favor of execution of a different task.
 
-23. The program [openmp_tied.c](./openmp/openmp_tied.c) demonstrates how you can use the `untied`  and `taskyield` construct.
+23. The program [openmp_tied.c](./src/openmp_tied.c) demonstrates how you can use the `untied`  and `taskyield` construct.
 
 ![](figs/tied2.png)
 
@@ -452,7 +452,7 @@ for (i = 0; i < N; i++) {
 }
 ```
 
-24. The program [openmp_taskloop.c](./openmp/openmp_taskloop.c) demonstrates how you can use the `taskloop` construct.
+24. The program [openmp_taskloop.c](./src/openmp_taskloop.c) demonstrates how you can use the `taskloop` construct.
 25. What difference do you see when you change the number of element and the number of tasks?
 
 ### The `taskgroup` Construct
@@ -472,11 +472,19 @@ for (i = 0; i < N; i++) {
 
 The `taskwait` construct dictates that the current task region remains suspended until the child tasks of the current task are completed. However, it does not indicate suspension until the descendants of the child tasks are finished. To synchronize tasks and their descendant tasks, you can enclose them within a `taskgroup` construct. 
 
-26. The program [openmp_taskgroups.c](./openmp/openmp_taskgroups.c) demonstrates how you can use the `taskgroup` construct.
+26. The program [openmp_taskgroups.c](./src/openmp_taskgroups.c) demonstrates how you can use the `taskgroup` construct.
 
 ### Exercise 5
 
-27. The program [exercise5.c](./openmp/exercise5.c) implements the [Cholesky Factorization](./applications/cholesky.md) without any parallelization. Paralleize the program using different OpenMP task directives. The solution is available in [exercise5_solution.c](./openmp/exercise5_solution.c).
+27. The program [exercise5.c](./src/exercise5.c) implements the [Cholesky Factorization](./applications/cholesky.md) without any parallelization. Paralleize the program using different OpenMP task directives. The solution is available in [exercise5_solution.c](./src/exercise5_solution.c).
+
+You can run the executable using
+
+```
+./exercise5  N
+```
+
+where `N` is the Matrix dimension.
 
 
 ## Contributers

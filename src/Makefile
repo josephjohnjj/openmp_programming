@@ -1,8 +1,8 @@
-CC 	= gcc-12
+CC 	= gcc
 CFLAGS	= -O3 -fopenmp 
 #CC	= icx
 #CFLAGS	= -O3 -qopenmp
-LDFLAGS	= -lm -lgomp
+LDFLAGS	= -lm -lgomp -lpapi
 
 all:	openmp_parallel_region openmp_reduction openmp_max_threads \
 	openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups openmp_simd \
@@ -89,7 +89,7 @@ exercise5:	exercise5.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
 exercise5_solution:	exercise5_solution.c
-	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS) 
 
 .SUFFIXES:	.o .c
 
