@@ -232,6 +232,24 @@ but the performance would be very poor!
 
 8. The program [`exercise1.c`](./src/exercise1_solution.c) has a race condition. Solve this race condition using the the construct `atomic`. The solutions are availble in [`exercise2_solution.c`](./src/exercise2_solution.c).
 
+
+### False Sharing
+
+All modern processors use cache. Accessing a memory location not only copy that memory location, but a slice of memory to me moved to the cache. This slice of memory is called __cache line__. For example when you aceess an array element `A[N]` there is a good chance `A[N+1]` and `A[N+2]` is also moved to the cache. 
+
+Simultaneous updates of individual elements in the same cache line coming from different processors invalidates entire cache lines , even though these updates are logically independent of each other. Each update of an individual element of a cache line marks the line as invalid. Other processors accessing a different element in the same line see the line marked as invalid. They are forced to fetch a more recent copy of the line from memory or elsewhere, even though the element accessed has not been modified. This is because cache coherency is maintained on a cache-line basis, and not for individual elements. As a result there will be an increase in interconnect traffic and overhead. Also, while the cache-line update is in progress, access to the elements in the line is inhibited.
+
+
+Concurrent updated to separate elements within a shared cache line by different processors cause the entire cache line to be invalidated, despite the logically independent nature of these updates. Each update to an element within the cache line flags the entire line as invalid, affecting other threads attempting to access different elements within the same line. Consequently, they are compelled to retrieve a fresher version of the line from memory or an alternate source, even if the specific element they're accessing hasn't been altered. This occurs because cache coherence operates at the level of cache lines, not individual elements. Consequently, it leads to amplified interconnect activity and additional processing overhead. Furthermore, during the update of the cache line, access to the elements within it is restricted.
+
+For instance if Thread T1 changes the data `A[N]` it will make the entire cache line invalid. Which means the data `A[N+1]` and `A[N+2]` also becomes invalid. So, if Threard T2 tries to access `A[N+1]` it will see that the the cache line is invalid and will fetch the data from the memory. This is __false sharing__. 
+
+Some methods to avoid false sharing are:
+1. Refrain from modifying global data accessed by multiple threads.
+2. Ensure that shared global data is aligned with cache line boundaries.
+3. Avoid using an array indexed by thread ID or rank to store temporary, thread-specific data.
+4. When parallelizing an algorithm, partition data sets along cache lines, rather than across them.
+
 ### The Worksharing-Loop Construct (`for`)
 
 In the program [`exercise2_solution.c`](./src/exercise2_solution.c), we parallelized a loop by manually assigning different loop indices to different threads. With `for` loops, OpenMP provides the [worksharing-loop construct](https://www.openmp.org/spec-html/5.1/openmpsu48.html#x73-730002.11.4) to do this for you. This directive is placed immediately before a for loop and automatically partitions the loop iterations across the available threads.
