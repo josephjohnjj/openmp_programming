@@ -4,8 +4,6 @@
 int main(void) 
 {
 
-  //omp_set_num_threads(4);
-
   printf("Total number of threads allocated in the serial section %d \n", omp_get_num_threads() );
   #pragma omp parallel 
   {
