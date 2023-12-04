@@ -269,7 +269,10 @@ An important optional clause is the `schedule(type[,chunk])` clause. This can be
 *   `(static,chunk-size)`: iterations are divided into pieces of a size specified by chunk and these chunks are then assigned to threads in a round-robin fashion.
 *   `(dynamic,chunk-size)`: iterations are divided into pieces of a size specified by chunk. As each thread finishes a chunk, it dynamically obtains the next available chunk of loop indices.
 
-10. [openmp_schedule.c](./src/openmp_schedule.c) demonstrates how the two scheduling options differ from one another. 
+10. [openmp_schedule.c](./src/openmp_schedule.c) demonstrates how the two scheduling options differ from one another.
+        
+    	./openmp_schedule
+
 
 ### Exercise 4
 
