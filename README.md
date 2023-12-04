@@ -144,7 +144,7 @@ The above three functions are used in the program [`openmp_max_threads.c`](./src
 
 4. Make and run the program `openmp_max_threads.c`. Run the program using
 
-        ./openmp_parallel_region 10
+        ./openmp_max_threads 10
 
  How many threads are created? What is the maximum threads allowed? 
 
