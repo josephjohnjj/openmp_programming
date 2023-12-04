@@ -133,7 +133,7 @@ Some other useful OpenMP routines are:
 
 The above three functions are used in the program [`openmp_max_threads.c`](./src/openmp_max_threads.c).
 
-4. Compile and run the program `openmp_max_threads.c`. Run the program using `OMP_DYNAMIC=true ./openmp_max_threads 50`. How many threads are created? Now re-run using `OMP_DYNAMIC=false ./openmp_max_threads 50`. How many threads are created now?
+4. Compile and run the program `openmp_max_threads.c`. Run the program using `OMP_DYNAMIC=true ./openmp_max_threads 10`. How many threads are created? Now re-run using `OMP_DYNAMIC=false ./openmp_max_threads 50`. How many threads are created now?
 
 ### The `reduction` Clause
 
