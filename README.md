@@ -158,7 +158,7 @@ The following table shows the initial value assigned to a reduction variable for
 5. Run the program [`openmp_reduction.c`](./src/openmp_reduction.c) with four threads and make sure you understand what is happening.
     
         make openmp_reduction
-        OMP_DYNAMIC=true ./openmp_parallel_section
+        OMP_DYNAMIC=true ./openmp_reduction
 
 ### The Datasharing Clause
 
