@@ -172,7 +172,7 @@ The optional `clause`s can be used to define data sharing as follows:
 6. Run the program [`openmp_datasharing.c`](./src/./openmp_datasharing.c) with four threads and identtify the difference between the different clauses.
     
         make openmp_datasharing
-        OMP_DYNAMIC=true ./openmp_datasharing
+        OMP_NUM_THREADS=4 ./openmp_datasharing
 
 ### Exercise 1
 
