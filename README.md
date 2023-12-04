@@ -125,6 +125,14 @@ make openmp_parallel_section
 
 What difference do you see between the different runs?
 
+ **Note**: Each program can be compiled by:
+ 
+        make <program name>
+	
+all the programs can be compiled in a single go by:
+ 
+        make all
+
 There is no guarantee that the requested number of threads will be allocated. `omp_get_num_threads()` provides the actual allocated thread count, and `omp_get_thread_num()` retrieves a thread's index. When designing an OpenMP program, focus on building the algorithm for the allocated threads, not the requested number. 
 
 Some other useful OpenMP routines are:
@@ -140,13 +148,7 @@ The above three functions are used in the program [`openmp_max_threads.c`](./src
 
  How many threads are created? What is the maximum threads allowed? 
 
- **Note**: Each program can be compiled by:
- 
-        make <program name>
-	
-all the programs can be compiled in a single go by:
- 
-        make all
+
 	
 
 ### The `reduction` Clause
