@@ -131,7 +131,7 @@ Some other useful OpenMP routines are:
 *   [`omp_set_num_threads(np)`](https://www.openmp.org/spec-html/5.1/openmpsu120.html#x159-1920003.2.1): sets the number of parallel threads to be used for parallel regions
 *   [`omp_get_max_threads()`](https://www.openmp.org/spec-html/5.1/openmpsu122.html#x161-1940003.2.3): gives the maximum number of threads that could be used
 
-The above three functions are used in the program [`oopenmp_max_threads.c`](./src/openmp_max_threads.c).
+The above three functions are used in the program [`openmp_max_threads.c`](./src/openmp_max_threads.c).
 
 4. Compile and run the program `openmp_max_threads.c`. Run the program using `OMP_DYNAMIC=true ./openmp_max_threads 50`. How many threads are created? Now re-run using `OMP_DYNAMIC=false ./openmp_max_threads 50`. How many threads are created now?
 
