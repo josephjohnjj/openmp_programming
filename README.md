@@ -5,7 +5,7 @@ This tutorial demonstrates how we can use OpenMP for shared memory programming.
 Learning outcomes of the tutorial are:
 1. Learn how to program for shared memory using OpenMP.
 2. Learn how to use tasks in OpenMP.
-3. Learn how to offload computations to GPU using OpenMP.
+
 
 Prerequisite:
 1. Experience with C Programming.
@@ -21,7 +21,10 @@ In a shared memory system, multiple CPUs are organized into distinct regions kno
 
 When running a sequential program, we utilize just one core from one of the NUMA regions. However, the program's performance can be significantly enhanced if it can distribute concurrent tasks to different cores.
 
-You can use the command `lstopo` to find the architecture of your machine. `lstopo` on Gadi login nodes will gie you the following:
+You can use the command `lstopo` to find the architecture of your machine. `lstopo` on Gadi login nodes will give you the following:
+<p align="center">
+  <img src="figs/threads.png" alt="Image Description">
+</p>
 
 ## Threads 
 
