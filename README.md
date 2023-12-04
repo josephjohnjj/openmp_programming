@@ -152,10 +152,10 @@ The following table shows the initial value assigned to a reduction variable for
 | - | 0 |
 | * | 1 |
 | & | ~ 0 |
-| | | 0 |
+| \| | 0 |
 | ^ | 0|
 | && | 1 |
-| || | 0 |
+| \|\| | 0 |
 | max | Least representable number  |
 | min | Largest representable number  |
 
