@@ -140,6 +140,15 @@ The above three functions are used in the program [`openmp_max_threads.c`](./src
 
  How many threads are created? What is the maximum threads allowed? 
 
+ **Note**: Each program can be compiled by:
+ 
+        make <program name>
+	
+all the programs can be compiled in a single go by:
+ 
+        make all
+	
+
 ### The `reduction` Clause
 
 A [reduction clause](https://www.openmp.org/spec-html/5.1/openmpsu117.html#x152-1720002.21.5) can be added to the parallel directive. This specifies that the final values of certain variables are combined using the specified operation (or intrinsic function) at the end of the parallel region. For example, consider the program [`openmp_reduction.c`](./src/openmp_reduction.c), which demonstrates a number of reduction operations and also shows the use of the [`omp_get_thread_num()`](https://www.openmp.org/spec-html/5.1/openmpsu123.html#x162-1950003.2.4) routine to uniquely define each thread.
