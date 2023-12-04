@@ -112,15 +112,15 @@ The above code is contained in file [`openmp_parallel_region.c`](./src/openmp_pa
 make openmp_parallel_section
 ```
 
-1. Run the code by typing `./openmp_parallel_section`.
+1. Run the code by typing `./openmp_parallel_region`.
   
 2. Now run the code with 4 threads by first setting the `OMP_NUM_THREADS` variable to 4
     
-        OMP_NUM_THREADS=4 ./openmp_parallel_section
+        OMP_NUM_THREADS=4 ./openmp_parallel_region
 
 3. Now run the code by setting the `OMP_DYNAMIC` to true
     
-        OMP_DYNAMIC=true ./openmp_parallel_section
+        OMP_DYNAMIC=true ./openmp_parallel_region
 
 What difference do you see between the different runs?
 
