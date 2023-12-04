@@ -32,14 +32,14 @@ You can use the command `lstopo` to find the architecture of your machine. `lsto
   <img src="figs/threads.png" alt="Image Description">
 </p>
 
-A thread is a sequential independent execution stream that executes different tasks in order. Typically, a thread is a constituent component of a process, and a single process can have multiple threads. Each thread maintains its own program counter, stack memory, and registers. Nevertheless, threads within the same process shares the heap memory and it can potentially share the same code and data.
+A thread is a sequential independent execution stream that executes different tasks in order. Typically, a thread is a constituent component of a process, and a single process can have multiple threads. Each thread maintains its own program counter, stack memory, and registers. Nevertheless, threads within the same process share the heap memory and it can potentially share the same code and data.
 
-Each process has an upper bound on the number of process it can handle. This number can be found using the command 
+Each process has an upper bound on the number of threads it can handle. This number can be found using the command:
 ```
 cat /proc/sys/kernel/threads-max
 ```
 
-The operating system assigns a thread to a core, allowing the thread to utilize the core's ALU for instruction execution. At any moment, only one thread can access a particular ALU within a core. Consequently, when the number of threads assigned to a core exceeds the core's available ALUs, the OS performs `context switching`, cycling between the various threads allocated to that core. Typically, in high-performance computing (HPC), it is customary to launch a number of threads equal to the number of available cores.
+The operating system assigns a thread to a core, allowing the thread to utilize the core's ALU for instruction execution. At any moment, only one thread can access a particular ALU within a core. Consequently, when the number of threads assigned to a core exceeds the core's available ALUs, the OS performs `context switching`, cycling between the various threads allocated to that core. Typically, in high-performance computing (HPC), it is customary to launch a number of threads equal to the number of available cores, thereby ensuring minimal context switching.
 
 ## Fork-Join Parallelism
 
@@ -55,8 +55,6 @@ In this tutorial we will be mainly using 3 applications to demonstrate the diffe
 1. Calculating the [value of `π`](./applications/pi.md) using monte carlo method.
 2. Finding [Mandelbrot](./applications/mandelbrot.md) fractal by Monte Carlo sampling.
 3. Tiled [Cholesky Factorization](./applications/cholesky.md).
-
-We will berifly explain each application, but it is not necessary know these application in detail to work throgh the tutorial. 
 
 
 ## OpenMP API
