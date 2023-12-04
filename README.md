@@ -23,7 +23,7 @@ When running a sequential program, we utilize just one core from one of the NUMA
 
 You can use the command `lstopo` to find the architecture of your machine. `lstopo` on Gadi login nodes will give you the following:
 <p align="center">
-  <img src="figs/threads.png" alt="Image Description">
+  <img src="figs/cpu.png" alt="Image Description">
 </p>
 
 ## Threads 
