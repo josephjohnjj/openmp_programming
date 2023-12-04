@@ -182,7 +182,8 @@ The optional `clause`s can be used to define data sharing as follows:
 ### Exercise 1
 
 7. The program [`exercise1.c`](./src/exercise1.c) computes the sum of all integers from 1 to `num_elem`, and creates `p` OpenMP threads. Currently, this task is performed using the following loop, using only the main thread:
-    
+
+  ```c
         sum = 0;
         i = 0;
         
@@ -190,8 +191,8 @@ The optional `clause`s can be used to define data sharing as follows:
           i++;
           sum += i;
         }
-    
-    Parallelize this summation by using OpenMP to manually divide (this means you are not to convert this to a `for` loop and use `#pragma omp for`) up the loop operations amongst the available OpenMP threads. Your parallel code must continue to use a `while` construct. Solution is available in [`exercise1_solution.c`](./src/exercise1_solution.c).
+  ```
+Parallelize this summation by using OpenMP to manually divide (this means you are not to convert this to a `for` loop and use `#pragma omp for`) up the loop operations amongst the available OpenMP threads. Your parallel code must continue to use a `while` construct. Solution is available in [`exercise1_solution.c`](./src/exercise1_solution.c).
 
 ### Race Condition and Critical Sections 
 
