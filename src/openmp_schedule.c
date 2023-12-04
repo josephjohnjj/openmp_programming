@@ -24,7 +24,7 @@ int main(void)
   }
 
   for(i = 0; i < N ; i++) {
-    printf("Loop indexes allocated to thread %d = %d \n", i, count[i]);
+    printf("Loop indexes handled by thread %d = %d \n", i, count[i]);
   }
 
   memset(count, 0, sizeof(int) * N);
@@ -39,7 +39,7 @@ int main(void)
   }
 
   for(i = 0; i < N ; i++) {
-    printf("Loop indexes allocated to thread %d = %d \n", i, count[i]);
+    printf("Loop indexes handled by thread %d = %d \n", i, count[i]);
   }
 
  
