@@ -380,7 +380,14 @@ else {
 }
 ```
 
-All parallel programs are bound by the [Amdhal's Law](https://en.wikipedia.org/wiki/Amdahl%27s_law) and in addition lanching threads have a non-trivial cost. So running things in parallel may not be helpful if the work to paralleised is trivial. We can use the you `if` clause to run things in parallel only if we have non-trivial work to parellelise. 
+All parallel programs are bound by the [Amdhal's Law](https://en.wikipedia.org/wiki/Amdahl%27s_law) - "_The overall performance improvement gained by optimizing a single part of a system is limited by the fraction of time that the improved part is actually used_".
+
+<p align="center">
+  <img src="figs/amdahls.png" alt="Image Description">
+</p>
+
+That is, the performance gain from parallelization is limited by the part of the program that can be parallelised. In the above diagram _Program 1_ will benefit more from parallelization when compared to  _Program 2_. 
+In addition lanching threads have a non-trivial cost. So running things in parallel may not be helpful if the work to paralleised is trivial. We can use the you `if` clause to run things in parallel only if we have non-trivial work to parellelise. 
 
 17. The program [openmp_if.c](./src/openmp_if.c) demonstrates how you can use the `if` clause. Run the program with different combination of _threads_ and _elements_. What difference do you see? 
 18. Change the _THRESHOLD_ value in the program. What difference do you see? 
