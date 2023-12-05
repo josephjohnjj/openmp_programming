@@ -2,7 +2,7 @@ CC 	= gcc
 CFLAGS	= -O3 -fopenmp 
 #CC	= icx
 #CFLAGS	= -O3 -qopenmp
-LDFLAGS	= -lm -lgomp -lpapi
+LDFLAGS	= -lpapi -lm -lgomp
 
 all:	openmp_parallel_region openmp_reduction openmp_max_threads \
 	openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups openmp_simd \
@@ -101,7 +101,7 @@ clean:
 	/bin/rm -f gpuexample[1-6]
 	/bin/rm -f openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups openmp_parallel_region
 	/bin/rm -f openmp_simd openmp_parallel_section openmp_max_threads openmp_reduction openmp_master openmp_schedule openmp_single
-	/bin/rm -f openmp_taskloop openmp_tied openmp_sections openmp_nowait openmp_parallel_for
+	/bin/rm -f openmp_taskloop openmp_tied openmp_sections openmp_nowait openmp_parallel_for openmp_barrier
 	/bin/rm -f exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution 
 	/bin/rm -f exercise4 exercise4_solution exercise5 exercise5_solution 
 	/bin/rm -f *.csv
