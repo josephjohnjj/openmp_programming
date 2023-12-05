@@ -18,11 +18,12 @@ int main(int argc, char* argv[]) {
 
   omp_set_num_threads(np);
 
-  num_threads = omp_get_num_threads();
   max_threads = omp_get_max_threads();
+  omp_set_num_threads(max_threads/2);
+  num_threads = omp_get_num_threads();
+
   printf("Before Parallel: num_threads=%i max_threads %i\n", num_threads,
          max_threads);
-  omp_set_num_threads(max_threads/2);
 #pragma omp parallel default(none) private(num_threads, t_id)
   {
     num_threads = omp_get_num_threads();
