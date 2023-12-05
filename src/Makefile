@@ -1,13 +1,13 @@
 CC 	= gcc
-CFLAGS	= -O3 -fopenmp 
+CFLAGS	= -O0 
 #CC	= icx
 #CFLAGS	= -O3 -qopenmp
-LDFLAGS	= -lpapi -lm -lgomp
+LDFLAGS	= -lpapi -lm -fopenmp
 
 all:	openmp_parallel_region openmp_reduction openmp_max_threads \
 	openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups openmp_simd \
 	openmp_schedule openmp_master openmp_single openmp_taskloop openmp_tied openmp_sections openmp_nowait \
-	openmp_parallel_for \
+	openmp_parallel_for openmp_false_sharing openmp_false_sharing_avoid\
 	exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution \
 	exercise4 exercise4_solution exercise5 exercise5_solution
 
@@ -27,6 +27,12 @@ openmp_schedule:	openmp_schedule.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
 openmp_single:	openmp_single.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
+openmp_false_sharing_avoid:	openmp_false_sharing_avoid.c
+	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
+
+openmp_false_sharing:	openmp_false_sharing.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
 
 openmp_parallel_for:	openmp_parallel_for.c
@@ -101,7 +107,7 @@ clean:
 	/bin/rm -f gpuexample[1-6]
 	/bin/rm -f openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups openmp_parallel_region
 	/bin/rm -f openmp_simd openmp_parallel_section openmp_max_threads openmp_reduction openmp_master openmp_schedule openmp_single
-	/bin/rm -f openmp_taskloop openmp_tied openmp_sections openmp_nowait openmp_parallel_for openmp_barrier
+	/bin/rm -f openmp_taskloop openmp_tied openmp_sections openmp_nowait openmp_parallel_for openmp_barrier openmp_false_sharing openmp_false_sharing_avoid
 	/bin/rm -f exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution 
 	/bin/rm -f exercise4 exercise4_solution exercise5 exercise5_solution 
 	/bin/rm -f *.csv
