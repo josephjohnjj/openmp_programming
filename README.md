@@ -113,6 +113,10 @@ The above code is contained in file [`openmp_parallel_region.c`](./src/openmp_pa
 make openmp_parallel_section
 ```
 
+> **_NOTE:_**   Each program can be compiled by: *make \<program name\>*
+
+> **_NOTE:_**  All the programs can be compiled in a single go by: *make all*
+
 1. Run the code by typing `./openmp_parallel_region`
   
 2. Now run the code with 4 threads by first setting the `OMP_NUM_THREADS` variable to 4
@@ -124,14 +128,6 @@ make openmp_parallel_section
         OMP_DYNAMIC=true ./openmp_parallel_region
 
 What difference do you see between the different runs?
-
- **Note**: Each program can be compiled by:
- 
-        make <program name>
-	
-all the programs can be compiled in a single go by:
- 
-        make all
 
 There is no guarantee that the requested number of threads will be allocated. `omp_get_num_threads()` provides the actual allocated thread count, and `omp_get_thread_num()` retrieves a thread's index. When designing an OpenMP program, focus on building the algorithm for the allocated threads, not the requested number. 
 
