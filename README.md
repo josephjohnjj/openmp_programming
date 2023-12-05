@@ -52,9 +52,9 @@ The fork-join method is a parallel computing technique in which the program's ex
 ## Sample Application
 
 In this tutorial we will be mainly using 3 applications to demonstrate the different aspcts of OpenMP:
-1. Calculating the [value of `π`](./applications/pi.md) using monte carlo method.
-2. Finding [Mandelbrot](./applications/mandelbrot.md) fractal by Monte Carlo sampling.
-3. Tiled [Cholesky Factorization](./applications/cholesky.md).
+a. Calculating the [value of `π`](./applications/pi.md) using monte carlo method.
+b. Finding [Mandelbrot](./applications/mandelbrot.md) fractal by Monte Carlo sampling.
+c. Tiled [Cholesky Factorization](./applications/cholesky.md).
 
 
 ## OpenMP API
@@ -259,10 +259,10 @@ Concurrent updated to separate elements within a shared cache line by different 
 For instance if Thread T1 changes the data `A[N]` it will make the entire cache line invalid. Which means the data `A[N+1]` and `A[N+2]` also becomes invalid. So, if Threard T2 tries to access `A[N+1]` it will see that the the cache line is invalid and will fetch the data from the memory. This is __false sharing__. 
 
 Some methods to avoid false sharing are:
-1. Refrain from modifying global data accessed by multiple threads.
-2. Ensure that shared global data is aligned with cache line boundaries.
-3. Avoid using an array indexed by thread ID or rank to store temporary, thread-specific data.
-4. When parallelizing an algorithm, partition data sets along cache lines, rather than across them.
+a. Refrain from modifying global data accessed by multiple threads.
+b. Ensure that shared global data is aligned with cache line boundaries.
+c. Avoid using an array indexed by thread ID or rank to store temporary, thread-specific data.
+d. When parallelizing an algorithm, partition data sets along cache lines, rather than across them.
 
 9. The programs [`openmp_false_sharing`](./src/openmp_false_sharing.c) and [`openmp_false_sharing_avoid`](./src/openmp_false_sharing_avoid.c) demonstrates false sharing and a method to avoid it.
 
