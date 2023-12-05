@@ -4,12 +4,15 @@ CFLAGS	= -O0
 #CFLAGS	= -O3 -qopenmp
 LDFLAGS	= -lpapi -lm -fopenmp
 
-all:	openmp_parallel_region openmp_reduction openmp_max_threads \
+all:	openmp_parallel_region openmp_reduction openmp_max_threads papi\
 	openmp_tasks openmp_depend openmp_datasharing openmp_if openmp_taskgroups openmp_simd \
 	openmp_schedule openmp_master openmp_single openmp_taskloop openmp_tied openmp_sections openmp_nowait \
 	openmp_parallel_for openmp_false_sharing openmp_false_sharing_avoid\
 	exercise1 exercise1_solution exercise2 exercise2_solution exercise3 exercise3_solution \
 	exercise4 exercise4_solution exercise5 exercise5_solution
+
+papi:	papi.c
+	$(CC) $(CFLAGS) -o $@ $? -lpapi
 
 openmp_parallel_region:	openmp_parallel_region.c
 	$(CC) $(CFLAGS) -o $@ $? $(LDFLAGS)
