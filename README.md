@@ -52,9 +52,15 @@ The fork-join method is a parallel computing technique in which the program's ex
 ## Sample Application
 
 In this tutorial we will be mainly using 3 applications to demonstrate the different aspcts of OpenMP:
-a. Calculating the [value of `π`](./applications/pi.md) using monte carlo method.
-b. Finding [Mandelbrot](./applications/mandelbrot.md) fractal by Monte Carlo sampling.
-c. Tiled [Cholesky Factorization](./applications/cholesky.md).
+* Calculating the [value of `π`](./applications/pi.md) using monte carlo method.
+* Finding [Mandelbrot](./applications/mandelbrot.md) fractal by Monte Carlo sampling.
+* Tiled [Cholesky Factorization](./applications/cholesky.md).
+
+## The Performance Application Programming Interface (PAPI)
+
+The Performance Application Programming Interface (PAPI) provides an interface and methodology for collecting performance counter information from various hardware and software components. In this tutorial, we will be using PAPI in some of the programs. 
+
+In this tutorial, we will be using PAPI v5.7.0 in some of our programs and the program [`papi.c`](./src/papi.c) demonstrates how we can use the PAPI API.
 
 
 ## OpenMP API
