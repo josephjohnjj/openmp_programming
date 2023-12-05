@@ -264,6 +264,8 @@ Some methods to avoid false sharing are:
 3. Avoid using an array indexed by thread ID or rank to store temporary, thread-specific data.
 4. When parallelizing an algorithm, partition data sets along cache lines, rather than across them.
 
+9. The programs [`openmp_false_sharing`](./src/openmp_false_sharing.c) and [`openmp_false_sharing_avoid`](./src/openmp_false_sharing_avoid.c) demonstrates false sharing and a method to avoid it.
+
 ### The Worksharing-Loop Construct (`for`)
 
 In the program [`exercise2_solution.c`](./src/exercise2_solution.c), we parallelized a loop by manually assigning different loop indices to different threads. With `for` loops, OpenMP provides the [worksharing-loop construct](https://www.openmp.org/spec-html/5.1/openmpsu48.html#x73-730002.11.4) to do this for you. This directive is placed immediately before a for loop and automatically partitions the loop iterations across the available threads.
@@ -277,7 +279,7 @@ for (...) { ... }
 
 ### Exercise 3
 
-9. [exercise3.c](./src/exercise3.c) calculates the value [`π` Using Monte Carlo Method](./applications/pi.md). Parallelize the program using the `for` construct. The solution is available in [exercise3_solution.c](./src/exercise3_solution.c).
+10. [exercise3.c](./src/exercise3.c) calculates the value [`π` Using Monte Carlo Method](./applications/pi.md). Parallelize the program using the `for` construct. The solution is available in [exercise3_solution.c](./src/exercise3_solution.c).
 
 ### The `schedule` Construct
 
@@ -286,14 +288,14 @@ An important optional clause is the `schedule(type[,chunk])` clause. This can be
 *   `(static,chunk-size)`: iterations are divided into pieces of a size specified by chunk and these chunks are then assigned to threads in a round-robin fashion.
 *   `(dynamic,chunk-size)`: iterations are divided into pieces of a size specified by chunk. As each thread finishes a chunk, it dynamically obtains the next available chunk of loop indices.
 
-10. [openmp_schedule.c](./src/openmp_schedule.c) demonstrates how the two scheduling options differ from one another.
+11. [openmp_schedule.c](./src/openmp_schedule.c) demonstrates how the two scheduling options differ from one another.
         
     	./openmp_schedule
 
 
 ### Exercise 4
 
-11. The program [exercise4.c](./src/exercise4.c) generates the [mandelbrot](./applications/mandelbrot.md) set. Paralleize the program using different OpenMP directives. Test how `static` and `dynamic` influences the performance of the program. The solution is available in [exercise4_solution.c](./src/exercise4_solution.c).
+12. The program [exercise4.c](./src/exercise4.c) generates the [mandelbrot](./applications/mandelbrot.md) set. Paralleize the program using different OpenMP directives. Test how `static` and `dynamic` influences the performance of the program. The solution is available in [exercise4_solution.c](./src/exercise4_solution.c).
 
 ### The `barrier` Construct
 
@@ -303,7 +305,7 @@ In any parallel program, there will be certain points where you wish to synchron
 
 All threads must arrive at the barrier before any thread can continue. Some OpenMP constructs have implicit barriers. 
 
-12. Program [openmp_barrier.c](./src/openmp_barrier.c) demonstrates the working of implicit and explicit barriers. 
+13. Program [openmp_barrier.c](./src/openmp_barrier.c) demonstrates the working of implicit and explicit barriers. 
 
 ### `nowait` Construct
 
@@ -314,7 +316,7 @@ The `nowait` clause overrides any synchronization that would otherwise occur at 
 for (...) { ... }
 ```
 
-13. Program [openmp_nowait.c](./src/openmp_nowait.c) demonstrates how we can use nowait with `for` construct.
+14. Program [openmp_nowait.c](./src/openmp_nowait.c) demonstrates how we can use nowait with `for` construct.
 
 ### The `single` and `master` Construct
 
@@ -340,8 +342,8 @@ In the `single` construct the thread that encounters the code block first, execu
 
 By default, all other threads will wait at the end of the structured block until the thread executing that block has completed. You can avoid this by augmenting the single directive with a `nowait` clause.
 
-14. [openmp_single](./src/openmp_single.c) demonstrates how the `single` construct works
-15. [openmp_master](./src/openmp_master.c) demonstrates how the `master` construct works. 
+15. [openmp_single](./src/openmp_single.c) demonstrates how the `single` construct works
+16. [openmp_master](./src/openmp_master.c) demonstrates how the `master` construct works. 
 
 ### The `sections` Construct
 
@@ -366,7 +368,7 @@ A program can be divided into different sections. Each of these section can be c
 }
 ```
 
-16. [openmp_sections.c](./src/openmp_sections.c) demonstrates how the `sections` construct works.
+17. [openmp_sections.c](./src/openmp_sections.c) demonstrates how the `sections` construct works.
 
 ### The `if` Clause
 
@@ -391,7 +393,7 @@ All parallel programs are bound by the [Amdhal's Law](https://en.wikipedia.org/w
 That is, the performance gain from parallelization is limited by the part of the program that can be parallelised. In the above diagram _Program 1_ will benefit more from parallelization when compared to  _Program 2_. 
 In addition lanching threads have a non-trivial cost. So running things in parallel may not be helpful if the work to paralleised is trivial. We can use the you `if` clause to run things in parallel only if we have non-trivial work to parellelise. 
 
-17. The program [openmp_if.c](./src/openmp_if.c) demonstrates how you can use the `if` clause. Run the program with different combination of _threads_ and _elements_. What difference do you see? 
+18. The program [openmp_if.c](./src/openmp_if.c) demonstrates how you can use the `if` clause. Run the program with different combination of _threads_ and _elements_. What difference do you see? 
 18. Change the _THRESHOLD_ value in the program. What difference do you see? 
 
 ### The `simd` Clause
