@@ -248,6 +248,10 @@ but the performance would be very poor!
 
 ### False Sharing
 
+<p align="center">
+  <img src="figs/false_sharing.png" alt="Image Description">
+</p>
+
 All modern processors use cache. Accessing a memory location not only copy that memory location, but a slice of memory to me moved to the cache. This slice of memory is called __cache line__. For example when you aceess an array element `A[N]` there is a good chance `A[N+1]` and `A[N+2]` is also moved to the cache. 
 
 Concurrent updated to separate elements within a shared cache line by different processors cause the entire cache line to be invalidated, despite the logically independent nature of these updates. Each update to an element within the cache line flags the entire line as invalid, affecting other threads attempting to access different elements within the same line. Consequently, they are compelled to retrieve a fresher version of the line from memory or an alternate source, even if the specific element they're accessing hasn't been altered. This occurs because cache coherence operates at the level of cache lines, not individual elements. Consequently, it leads to amplified interconnect activity and additional processing overhead. Furthermore, during the update of the cache line, access to the elements within it is restricted.
